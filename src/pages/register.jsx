@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Mail, Lock, User } from 'lucide-react';
 import { useStore } from '../store';
 import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 export default function Register() {
   const [error, setError] = useState('');
@@ -38,7 +40,7 @@ export default function Register() {
           <p className='text-green-500'>{success}</p>
         )}
         <form id="createUserForm" onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <div className="mb-4">
+          <div className="relative mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
               Nom
             </label>
@@ -51,7 +53,7 @@ export default function Register() {
             {errors.name && <p className='text-red-500'>{errors.name?.message}</p>}
             <User className="absolute left-3 top-2 text-gray-400" size={20} />
           </div>
-          <div className="mb-4">
+          <div className="relative mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
               Email
             </label>
@@ -64,7 +66,7 @@ export default function Register() {
             {errors.email && <p className='text-red-500'>{errors.email?.message}</p>}
             <Mail className="absolute left-3 top-2 text-gray-400" size={20} />
           </div>
-          <div className="mb-4">
+          <div className="relative mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
               Mot de passe
             </label>
@@ -77,7 +79,7 @@ export default function Register() {
             {errors.password && <p className='text-red-500'>{errors.password?.message}</p>}
             <Lock className="absolute left-3 top-2 text-gray-400" size={20} />
           </div>
-          <div className="mb-4">
+          <div className="relative mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">
               Role
             </label>
@@ -104,6 +106,7 @@ export default function Register() {
             >
               S'inscrire
             </button>
+            <Link to="/login" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" >Log in</Link>
           </div>
         </form>
       </div>
