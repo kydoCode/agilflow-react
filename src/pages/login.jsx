@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { apiService } from "../../src/ApiService";
 import { useStore } from '../store';
+import Header from '../components/ui/Header';
+import Footer from '../components/ui/Footer';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -33,7 +35,7 @@ export default function Login() {
       console.log('Token stored:', data.token);
       localStorage.setItem('token', data.token); // Store the token in localStorage
       setIsAuthenticated(true);
-      navigate('/'); // Redirect to the home page or dashboard
+      navigate('/dashboard'); // Redirect to the home page or dashboard
     } catch (err) {
       setError('Login failed. Please check your credentials.');
       console.error('Login error:', err);
@@ -45,6 +47,8 @@ export default function Login() {
   console.log('Login.jsx - isAuthenticated on render:', useStore.getState().isAuthenticated); // Log on render
 
   return (
+    <>
+    <Header />
     <div className="container mx-auto p-4 flex justify-center items-center min-h-screen">
       <div className="w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Connexion</h1>
@@ -100,5 +104,7 @@ export default function Login() {
         </form>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }

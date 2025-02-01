@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Mail, Lock, User } from 'lucide-react';
+import { Mail, Lock, User, Users } from 'lucide-react';
 import { useStore } from '../store';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import Header from '../components/ui/Header';
+import Footer from '../components/ui/Footer';
 
 
 export default function Register() {
@@ -30,6 +32,8 @@ export default function Register() {
   };
 
   return (
+    <>
+    <Header />
     <div className="container mx-auto p-4 flex justify-center items-center min-h-screen">
       <div className="w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Inscription</h1>
@@ -40,10 +44,11 @@ export default function Register() {
           <p className='text-green-500'>{success}</p>
         )}
         <form id="createUserForm" onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <div className="relative mb-4">
+          <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
               Nom
             </label>
+            <div className="relative">
             <input
               {...register("name", { required: "Ce champ est obligatoire" })}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
@@ -53,10 +58,12 @@ export default function Register() {
             {errors.name && <p className='text-red-500'>{errors.name?.message}</p>}
             <User className="absolute left-3 top-2 text-gray-400" size={20} />
           </div>
+          </div>
           <div className="relative mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
               Email
             </label>
+            <div className="relative">
             <input
               {...register("email", { required: "L'email est obligatoire", pattern: { value: /^\S+@\S+$/i, message: "Email invalide" } })}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
@@ -66,10 +73,12 @@ export default function Register() {
             {errors.email && <p className='text-red-500'>{errors.email?.message}</p>}
             <Mail className="absolute left-3 top-2 text-gray-400" size={20} />
           </div>
+          </div>
           <div className="relative mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
               Mot de passe
             </label>
+            <div className="relative">
             <input
               {...register("password", { required: "Le mot de passe est obligatoire", minLength: { value: 8, message: "Le mot de passe doit contenir au moins 8 caractères" } })}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
@@ -78,6 +87,7 @@ export default function Register() {
             />
             {errors.password && <p className='text-red-500'>{errors.password?.message}</p>}
             <Lock className="absolute left-3 top-2 text-gray-400" size={20} />
+          </div>
           </div>
           <div className="relative mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">
@@ -96,6 +106,7 @@ export default function Register() {
                 <option value="scrum master">Scrum Master</option>
                 <option value="team member">Team Member</option>
               </select>
+              <Users className="absolute left-3 top-2 text-gray-400" size={20} />
               {errors.role && <p className='text-red-500'>{errors.role?.message}</p>}
             </div>
           </div>
@@ -111,5 +122,7 @@ export default function Register() {
         </form>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
