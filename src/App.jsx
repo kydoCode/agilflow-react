@@ -9,7 +9,7 @@ import Login from './pages/login';
 import Register from './pages/register';
 import LandingPage from './pages/landingPage';
 import DemoScreen from './pages/demoScreen';
-import PrivacyPolicy from './pages/privacypolicy';
+import PrivacyPolicy from './pages/privacyPolicy';
 import Legal from './pages/legal';
 
 function App() {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mail, Lock, User, Users } from 'lucide-react';
 import { useStore } from '../store';
 import { useForm } from 'react-hook-form';
@@ -8,6 +8,11 @@ import Footer from '../components/ui/Footer';
 
 
 export default function Register() {
+
+  useEffect(() => {
+    document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Register');
+  }, []);
+
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
