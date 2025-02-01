@@ -6,6 +6,11 @@ import Modal from '../components/ui/Modal';
 import { useEffect } from 'react';
 
 export default function Dashboard() {
+
+  useEffect(() => {
+    document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Kanban Dashboard');
+  }, []);
+
   const { stories, fetchStories, addStory, updateStory, deleteStory } = useStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

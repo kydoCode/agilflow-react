@@ -1,3 +1,13 @@
+// const isProduction = process.env.NODE_ENV === 'production';
+
+// const BASE_URL = isProduction
+//   ? 'https://agilflow-api.vercel.app/api/userstories'
+//   : 'http://127.0.0.1:3000/api/userstories';
+
+// const BASE_URL_TWO = isProduction
+//   ? 'https://agilflow-api.vercel.app/api/auth'
+//   : 'http://127.0.0.1:3000/api/auth';
+
 // const BASE_URL = 'http://127.0.0.1:3000/api/userstories';
 // const BASE_URL_TWO = 'http://127.0.0.1:3000/api/auth';
 

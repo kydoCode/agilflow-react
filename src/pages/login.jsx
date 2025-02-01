@@ -1,5 +1,5 @@
 import { Lock, Mail } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { apiService } from "../../src/ApiService";
 import { useStore } from '../store';
@@ -7,6 +7,10 @@ import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
 
 export default function Login() {
+  useEffect(() => {
+    document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Login');
+  }, []);
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -14,6 +18,7 @@ export default function Login() {
   const setIsAuthenticated = useStore((state) => state.setIsAuthenticated);
   const setToken = useStore((state) => state.setToken);
   const navigate = useNavigate();
+
 
   console.log('Login component rendered'); // ADDED CONSOLE LOG
 
