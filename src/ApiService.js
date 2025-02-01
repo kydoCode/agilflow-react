@@ -1,6 +1,10 @@
 const BASE_URL = 'http://127.0.0.1:3000/api/userstories';
 const BASE_URL_TWO = 'http://127.0.0.1:3000/api/auth';
 
+// Config avec vercel backend
+// const BASE_URL = 'https://agilflow-api.vercel.app/api/userstories';
+// const BASE_URL_TWO = 'https://agilflow-api.vercel.app/api/auth';
+
 export const apiService = {
     async login(email, password) {
         const response = await fetch(`${BASE_URL_TWO}/login`, {
