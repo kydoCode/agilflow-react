@@ -1,3 +1,10 @@
+// const BASE_URL = 'https://agilflow-api.vercel.app';
+
+const BASE_URL = process.env.VERCEL_URL 
+  ? `https://${process.env.VERCEL_URL}` 
+  : 'http://127.0.0.1:3000';
+
+
 // const isProduction = process.env.NODE_ENV === 'production';
 
 // const BASE_URL = isProduction
@@ -12,8 +19,8 @@
 // const BASE_URL_TWO = 'http://127.0.0.1:3000/api/auth';
 
 // Config avec vercel backend
-const BASE_URL = 'https://agilflow-api.vercel.app/api/userstories';
-const BASE_URL_TWO = 'https://agilflow-api.vercel.app/api/auth';
+// const BASE_URL = 'https://agilflow-api.vercel.app/api/userstories';
+// const BASE_URL_TWO = 'https://agilflow-api.vercel.app/api/auth';
 
 // const isProduction = process.env.NODE_ENV === 'production';
 // const BASE_URL = isProduction
@@ -26,7 +33,7 @@ const BASE_URL_TWO = 'https://agilflow-api.vercel.app/api/auth';
 
 export const apiService = {
     async login(email, password) {
-        const response = await fetch(`${BASE_URL_TWO}/login`, {
+        const response = await fetch(`${BASE_URL}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,7 +50,7 @@ export const apiService = {
         return response.json();
     },
     async register(name, email, password, role) {
-        const response = await fetch(`${BASE_URL_TWO}/register`, {
+        const response = await fetch(`${BASE_URL}/api/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -58,7 +65,7 @@ export const apiService = {
         return response.json();
     },
     async getProfile(token) {
-        const response = await fetch(`${BASE_URL_TWO}/profile`, {
+        const response = await fetch(`${BASE_URL}/api/auth/profile`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +84,7 @@ export const apiService = {
         if (!token) {
             throw new Error('No token found. Please log in.'); // Handle missing token
         }
-        const response = await fetch(`${BASE_URL}`, {
+        const response = await fetch(`${BASE_URL}/api/userstories`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +99,7 @@ export const apiService = {
     },
     
     async getStoryById(id) {
-        const response = await fetch(`${BASE_URL}/${id}`, {
+        const response = await fetch(`${BASE_URL}/api/userstories/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -103,7 +110,7 @@ export const apiService = {
 
     async updateStory(id, story) {
         const token = localStorage.getItem('token');
-        const response = await fetch(`${BASE_URL}/${id}`, {
+        const response = await fetch(`${BASE_URL}/api/userstories/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -116,7 +123,7 @@ export const apiService = {
 
     async deleteStory(id) {
         const token = localStorage.getItem('token');
-        const response = await fetch(`${BASE_URL}/${id}`, {
+        const response = await fetch(`${BASE_URL}/api/userstories/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -133,7 +140,7 @@ export const apiService = {
             'Authorization': `Bearer ${token}`
         });
         console.log("Request Body:", JSON.stringify(story));
-        const response = await fetch(`${BASE_URL}`, {
+        const response = await fetch(`${BASE_URL}/api/userstories`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
