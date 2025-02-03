@@ -7,6 +7,16 @@ import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
 
 export default function Login() {
+  const Navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(token){
+      Navigate('/dashboard');
+    }
+  }, []);
+
+
   useEffect(() => {
     document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Login');
   }, []);

@@ -13,31 +13,16 @@ import PrivacyPolicy from './pages/privacyPolicy';
 import Legal from './pages/legal';
 
 function App() {
-  const isAuthenticated = useStore((state) => state.isAuthenticated);
-  const store = useStore();
-
-  useEffect(() => {
-    store.initializeAuth();
-  }, [store]);
-
   return (
     <>
-    {/* <BrowserRouter>
-      <Routes>
-        <Route path="/" element={isAuthenticated ? <Dashboard /> : <Login /> } />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </BrowserRouter> */}
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/legal" element={<Legal />} />
-        {/* <Route path="/demo" element={<DemoScreen />} /> */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
      </BrowserRouter> 

@@ -4,8 +4,18 @@ import { useStore } from '../store';
 import Card from '../components/ui/Card';
 import Modal from '../components/ui/Modal';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
+  const Navigate = useNavigate();
+
+  useEffect(() => {
+    // get token from localStorage
+    const token = localStorage.getItem('token');
+    if(!token){
+      Navigate('/login');
+    }
+  }, []);
 
   useEffect(() => {
     document.title = 'AgilFlow - Kanban Dashboard'
