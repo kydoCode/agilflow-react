@@ -5,6 +5,7 @@ import Card from '../components/ui/Card';
 import Modal from '../components/ui/Modal';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/ui/Header';
 
 export default function Dashboard() {
   const Navigate = useNavigate();
@@ -35,7 +36,10 @@ export default function Dashboard() {
 
 
   return (
+    <>
+    <Header classToPass={"bg-gradient-to-br from-[#020B2D] via-[#123363] to-[#0D8B7D]"} />
     <div className="container mx-auto p-4">
+      
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Kanban Board</h1>
         <div className="flex items-center">
@@ -95,5 +99,6 @@ export default function Dashboard() {
       </div>
           <Modal modalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
     </div>
+    </>
   );
 }
