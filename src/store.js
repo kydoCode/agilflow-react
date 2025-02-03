@@ -12,8 +12,20 @@ export const useStore = create(
 
     initializeAuth: () => {
       const token = localStorage.getItem('token');
-      if(token && token.length > 0){
-        set({ isAuthenticated: true});
+      const currentIsAuthenticated = get().isAuthenticated;
+      if (currentIsAuthenticated) {
+        return; // Skip fetching profile if already authenticated
+      }
+      if (token) {
+        apiService.getProfile(token)
+          .then(profile => {
+            set({ isAuthenticated: true, user: profile });
+          })
+          .catch(error => {
+            console.error('initializeAuth - error fetching profile:', error);
+            localStorage.removeItem('token'); // Clear invalid token
+            set({ isAuthenticated: false, user: null });
+          });
       }
     },
 
