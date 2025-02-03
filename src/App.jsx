@@ -20,8 +20,6 @@ function App() {
     store.initializeAuth();
   }, [store]);
 
-  console.log('App.jsx - isAuthenticated:', isAuthenticated); // Add this line
-
   return (
     <>
     {/* <BrowserRouter>

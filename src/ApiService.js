@@ -1,11 +1,11 @@
 // const BASE_URL = 'https://agilflow-api.vercel.app';
 
-// const BASE_URL = process.env.VERCEL_URL;
-const BASE_URL = process.env.VERCEL_URL? 
+const BASE_URL = 'http://127.0.0.1:3000';
+/*const BASE_URL = process.env.VERCEL_URL? 
 `https://${process.env.VERCEL_URL}` 
-: 'https://agilflow-api.vercel.app';
+: 'https://agilflow-api.vercel.app';*/
 
-console.log('BASE_URL is currently:', BASE_URL);
+//console.log('BASE_URL is currently:', BASE_URL);
 
 
 

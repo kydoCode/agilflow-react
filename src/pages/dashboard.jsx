@@ -8,20 +8,18 @@ import { useEffect } from 'react';
 export default function Dashboard() {
 
   useEffect(() => {
-    document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Kanban Dashboard');
+    document.title = 'AgilFlow - Kanban Dashboard'
   }, []);
 
-  const { stories, fetchStories, addStory, updateStory, deleteStory } = useStore();
+  const { stories, fetchStories} = useStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchStories();
   }, [fetchStories]);
 
-  const filterByStatus = (status) => {
-    return stories.filter((story) => story.status === status);
-    return filteredStories;
-  };
+  console.log(stories)
+
 
   return (
     <div className="container mx-auto p-4">
@@ -52,8 +50,10 @@ export default function Dashboard() {
          <div className="bg-gray-100 p-4 rounded-lg">
             <h2 className='text-xl font-semibold mb-2'>Todo</h2>
             <div className='space-y-2'>
-               {filterByStatus('todo').map(story => (
-                  <Card key={story.id} id={story.id} assignee={story.assignee} action={story.action} need={story.need} priority={story.priority} role={story.assignee?.role} />
+               {stories
+               .filter(story => story.status === 'todo')
+               .map(story => (
+                  <Card key={story.id} id={story.id} action={story.action} need={story.need} priority={story.priority} role={story.role} status={story.status} />
                ))}
             </div>
          </div>
@@ -61,8 +61,10 @@ export default function Dashboard() {
          <div className="bg-gray-100 p-4 rounded-lg">
             <h2 className='text-xl font-semibold mb-2'>Doing</h2>
             <div className='space-y-2'>
-               {filterByStatus('doing').map(story => (
-                  <Card key={story.id} id={story.id} assignee={story.assignee} action={story.action} need={story.need} priority={story.priority} role={story.assignee?.role} />
+               {stories
+               .filter(story => story.status === 'doing')
+               .map(story => (
+                  <Card key={story.id} id={story.id} action={story.action} need={story.need} priority={story.priority} role={story.role} status={story.status} />
                ))}
             </div>
          </div>
@@ -70,8 +72,10 @@ export default function Dashboard() {
          <div className="bg-gray-100 p-4 rounded-lg">
             <h2 className='text-xl font-semibold mb-2'>Done</h2>
             <div className='space-y-2'>
-               {filterByStatus('done').map(story => (
-                  <Card key={story.id} id={story.id} assignee={story.assignee} action={story.action} need={story.need} priority={story.priority} role={story.assignee?.role} />
+               {stories
+               .filter(story => story.status === 'done')
+               .map(story => (
+                  <Card key={story.id} id={story.id} action={story.action} need={story.need} priority={story.priority} role={story.role} status={story.status} />
                ))}
             </div>
          </div>
