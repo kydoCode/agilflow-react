@@ -11,20 +11,15 @@ export const useStore = create(
     setToken: (token) => set({ token: token }),
 
     initializeAuth: () => {
-      console.log('initializeAuth - start'); // Added log
       const token = localStorage.getItem('token');
       const currentIsAuthenticated = get().isAuthenticated;
-      console.log('initializeAuth - token:', token, 'isAuthenticated:', currentIsAuthenticated);
       if (currentIsAuthenticated) {
-        console.log('initializeAuth - already authenticated, skipping profile fetch');
         return; // Skip fetching profile if already authenticated
       }
       if (token) {
-        console.log('initializeAuth - token found, fetching profile');
         apiService.getProfile(token)
           .then(profile => {
             set({ isAuthenticated: true, user: profile });
-            console.log('initializeAuth - profile fetched and set', profile);
           })
           .catch(error => {
             console.error('initializeAuth - error fetching profile:', error);
@@ -32,7 +27,6 @@ export const useStore = create(
             set({ isAuthenticated: false, user: null });
           });
       }
-      console.log('initializeAuth - end'); // Added log
     },
 
     login: async (email, password) => {
@@ -80,11 +74,14 @@ export const useStore = create(
 
     updateStory: async (id, updatedStory) => {
       const response = await apiService.updateStory(id, updatedStory);
+      // On récupère la réponse 
+      console.log('Répose update:', response);
       set((state) => ({
         stories: state.stories.map((story) =>
           story.id === id ? { ...story, ...response, updatedAt: new Date(response.updatedAt) } : story
         ),
       }));
+      console.log('Stories after update:', get().stories);
     },
 
     deleteStory: async (id) => {

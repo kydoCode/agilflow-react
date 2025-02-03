@@ -4,8 +4,8 @@ import { useStore } from "../../store";
 
 export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave, isEditing }) {
     const { addStory, updateStory } = useStore();
-    const [task, setTask] = useState({ role: '', action: '', need: '', status: 'todo', priority: 'medium' });
-    const [editedStory, setEditedStory] = useState(editingStory || { role: '', action: '', need: '', status: 'todo', priority: 'medium' });
+    const [task, setTask] = useState({ role: '', action: '', need: '', status: '', priority: '' });
+    const [editedStory, setEditedStory] = useState(editingStory || { role: '', action: '', need: '', status: '', priority: '' });
 
     // Fonction qui permet de mettre à jour le state task en fonction des champs de saisie
     const handleInputChange = (e) => {
@@ -60,7 +60,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             <select
               id="role"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-              value={editedStory.role}
+              defaultValue={editedStory.role}
               onChange={(e) => setEditedStory({ ...editedStory, role: e.target.value })}
             >
               <option value="developer">Developer</option>
@@ -100,7 +100,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             <select
               id="status"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-              value={editedStory.status}
+              defaultValue={editedStory.status}
               onChange={(e) => setEditedStory({ ...editedStory, status: e.target.value })}
             >
               <option value="todo">Todo</option>
@@ -115,7 +115,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
                     <select
                       id="priority"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                      value={editedStory.priority}
+                      defaultValue={editedStory.priority}
                       onChange={(e) => setEditedStory({ ...editedStory, priority: e.target.value })}
                     >
                       <option value="low">Low</option>

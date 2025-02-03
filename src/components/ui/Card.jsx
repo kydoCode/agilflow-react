@@ -6,7 +6,7 @@ import { MdDelete } from 'react-icons/md';
 import Modal from './Modal';
 import { useStore } from '../../store';
 
-export default function Card({ id, assignee, action, need, status, priority }) {
+export default function Card({ id, role, action, need, status, priority }) {
     const { deleteStory, updateStory } = useStore();
 
     const [editModal, setEditModal] = useState(false);
@@ -34,7 +34,6 @@ export default function Card({ id, assignee, action, need, status, priority }) {
     };
 
     const getPriorityColor = (priority) => {
-        console.log("Priority value:", priority); // Debug log
         switch (priority) {
             case 'high':
                 return 'red';
@@ -69,7 +68,7 @@ export default function Card({ id, assignee, action, need, status, priority }) {
             <Modal
                 modalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
-                editingStory={{ id, assignee, action, need, status }}
+                editingStory={{ id, role, action, need, status }}
                 onSave={handleSaveEdit}
                 isEditing={isEditing}
             />
@@ -77,7 +76,7 @@ export default function Card({ id, assignee, action, need, status, priority }) {
             <div className="space-y-4">
                 <div className="flex items-start space-x-2">
                     <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
-                        En tant que {assignee?.role}
+                        En tant que {role}
                     </span>
                 </div>
 

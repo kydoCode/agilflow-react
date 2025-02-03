@@ -19,9 +19,6 @@ export default function Login() {
   const setToken = useStore((state) => state.setToken);
   const navigate = useNavigate();
 
-
-  console.log('Login component rendered'); // ADDED CONSOLE LOG
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -30,14 +27,11 @@ export default function Login() {
     try {
       const data = await apiService.login(email, password);
       // const profile = await apiService.getProfile(data.token);
-
-      console.log(data)
       
       // Handle successful login (e.g., store token, redirect)
       // console.log('Login successful:', { data, profile });
       
       // TODO: Add logic to store the token and redirect the user
-      console.log('Token stored:', data.token);
       localStorage.setItem('token', data.token); // Store the token in localStorage
       setIsAuthenticated(true);
       navigate('/dashboard'); // Redirect to the home page or dashboard
@@ -49,7 +43,6 @@ export default function Login() {
     }
   };
 
-  console.log('Login.jsx - isAuthenticated on render:', useStore.getState().isAuthenticated); // Log on render
 
   return (
     <>
