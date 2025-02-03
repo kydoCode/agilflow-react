@@ -8,6 +8,7 @@ import Footer from '../components/ui/Footer';
 
 
 export default function Register() {
+  const Navigate = useNavigate
 
   useEffect(() => {
     document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Register');
@@ -26,10 +27,9 @@ export default function Register() {
     try {
       await registerUser(data.name, data.email, data.password, data.role);
       setSuccess('Inscription réussie ! Vous allez être redirigé...');
-      console.log(data.name, data.email, data.password, data.role);
       setTimeout(() => {
-        window.location.href = '/';
-      }, 5000);
+        Navigate('/dashboard');
+      }, 3000);
     } catch (err) {
       setError('Erreur lors de l\'inscription. Veuillez réessayer.');
       console.error(err);

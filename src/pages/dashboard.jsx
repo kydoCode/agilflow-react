@@ -28,7 +28,10 @@ export default function Dashboard() {
     fetchStories();
   }, [fetchStories]);
 
-  console.log(stories)
+  const logout = () => {
+    localStorage.removeItem('token');
+    Navigate('/login');
+  }
 
 
   return (
@@ -49,7 +52,7 @@ export default function Dashboard() {
           </button>
           <button
             className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"
-            onClick={() => useStore.getState().logout()}
+            onClick={logout}
           >
             Logout
           </button>
