@@ -3,10 +3,11 @@ import { useNavigate, Link } from 'react-router-dom'
 import logo from '../../assets/images/agilflow_logo_nobg.png';
 
 
-export default function Header() {
-      const navigate = useNavigate()
+export default function Header({classToPass}) {
+    const navigate = useNavigate()
     const [isLoggedIn, setIsLoggedIn] = useState(false)
   return (
+      <header className={classToPass}>
           <nav className="container mx-auto px-4 py-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
@@ -47,6 +48,7 @@ export default function Header() {
               </div>
             </div>
           </nav>
+          </header>
   );
 }
 // import React, { useState } from 'react'
