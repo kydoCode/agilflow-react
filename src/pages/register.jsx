@@ -11,7 +11,7 @@ export default function Register() {
   const Navigate = useNavigate
 
   useEffect(() => {
-    document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Register');
+    document.title = 'AgilFlow - Register';
   }, []);
 
   const [error, setError] = useState('');
@@ -127,7 +127,7 @@ export default function Register() {
         </form>
       </div>
     </div>
-    <Footer />
+    <Footer classToPass={"bg-gradient-to-br from-[#020B2D] via-[#123363] to-[#0D8B7D]"} />
     </>
   );
 }

@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 export default function PrivacyPolicy() {
 
      useEffect(() => {
-        document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Politique de confidentialité');
+        document.title = 'AgilFlow - Politique de confidentialité';
       }, []);
 
   return (

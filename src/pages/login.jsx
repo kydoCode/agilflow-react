@@ -18,7 +18,7 @@ export default function Login() {
 
 
   useEffect(() => {
-    document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Login');
+    document.title = 'AgilFlow - Login';
   }, []);
   
   const [email, setEmail] = useState('');

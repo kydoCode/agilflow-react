@@ -10,7 +10,7 @@ export default function LandingPage() {
   const navigate = useNavigate()
   
     useEffect(() => {
-      document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Home');
+      document.title = 'AgilFlow - Home';
     }, []);
 
   return (

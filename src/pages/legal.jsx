@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 export default function Legal() {
 
      useEffect(() => {
-        document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Mentions légales');
+        document.title = 'AgilFlow - Mentions légales';
       }, []);
 
   return (
