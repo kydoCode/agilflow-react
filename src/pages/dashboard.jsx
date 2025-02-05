@@ -6,6 +6,7 @@ import Modal from '../components/ui/Modal';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/ui/Header';
+import Footer from '../components/ui/Footer';
 
 export default function Dashboard() {
   const Navigate = useNavigate();
@@ -99,6 +100,7 @@ export default function Dashboard() {
       </div>
           <Modal modalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
     </div>
+    <Footer classToPass={"bg-gradient-to-br from-[#020B2D] via-[#123363] to-[#0D8B7D]"}/>
     </>
   );
 }

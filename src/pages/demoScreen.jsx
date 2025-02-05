@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 export default function DemoScreen() {
 
      useEffect(() => {
-        document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Demo');
+        document.title = 'AgilFlow - Demo';
       }, []);
 
   return (
