@@ -112,7 +112,7 @@ export default function Login() {
         </form>
       </div>
     </div>
-    <Footer />
+    <Footer classToPass={"bg-gradient-to-br from-[#020B2D] via-[#123363] to-[#0D8B7D]"}/>
     </>
   );
 }
