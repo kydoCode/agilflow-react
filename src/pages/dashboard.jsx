@@ -6,6 +6,7 @@ import Modal from '../components/ui/Modal';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/ui/Header';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Dashboard() {
   const Navigate = useNavigate();
@@ -25,17 +26,27 @@ export default function Dashboard() {
   const { stories, fetchStories} = useStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!hasFetched) {
-      fetchStories();
-      setHasFetched(true);
+      setLoading(true);
+      fetchStories()
+        .then(() => {
+          setLoading(false);
+          setHasFetched(true);
+        })
+        .catch(() => {
+          setLoading(false);
+          toast.error('Erreur lors du chargement des stories');
+        });
     }
   }, []);
 
 
   return (
     <>
+    <Toaster position="top-right" />
     <Header classToPass={"bg-gradient-to-br from-[#020B2D] via-[#123363] to-[#0D8B7D]"} />
     <div className="container mx-auto p-4">
       
@@ -59,33 +70,54 @@ export default function Dashboard() {
          <div className="bg-gray-100 p-4 rounded-lg min-h-[200px]">
             <h2 className='text-xl font-semibold mb-2'>Todo</h2>
             <div className='space-y-2'>
-               {stories
-               .filter(story => story.status === 'todo')
-               .map(story => (
-                  <Card key={story.id} id={story.id} action={story.action} need={story.need} priority={story.priority} role={story.role} status={story.status} />
-               ))}
+               {loading ? (
+                 <div className="animate-pulse space-y-2">
+                   <div className="h-20 bg-gray-300 rounded"></div>
+                   <div className="h-20 bg-gray-300 rounded"></div>
+                 </div>
+               ) : (
+                 stories
+                 .filter(story => story.status === 'todo')
+                 .map(story => (
+                    <Card key={story.id} id={story.id} action={story.action} need={story.need} priority={story.priority} role={story.role} status={story.status} />
+                 ))
+               )}
             </div>
          </div>
 
          <div className="bg-gray-100 p-4 rounded-lg min-h-[200px]">
             <h2 className='text-xl font-semibold mb-2'>Doing</h2>
             <div className='space-y-2'>
-               {stories
-               .filter(story => story.status === 'doing')
-               .map(story => (
-                  <Card key={story.id} id={story.id} action={story.action} need={story.need} priority={story.priority} role={story.role} status={story.status} />
-               ))}
+               {loading ? (
+                 <div className="animate-pulse space-y-2">
+                   <div className="h-20 bg-gray-300 rounded"></div>
+                   <div className="h-20 bg-gray-300 rounded"></div>
+                 </div>
+               ) : (
+                 stories
+                 .filter(story => story.status === 'doing')
+                 .map(story => (
+                    <Card key={story.id} id={story.id} action={story.action} need={story.need} priority={story.priority} role={story.role} status={story.status} />
+                 ))
+               )}
             </div>
          </div>
 
          <div className="bg-gray-100 p-4 rounded-lg min-h-[200px]">
             <h2 className='text-xl font-semibold mb-2'>Done</h2>
             <div className='space-y-2'>
-               {stories
-               .filter(story => story.status === 'done')
-               .map(story => (
-                  <Card key={story.id} id={story.id} action={story.action} need={story.need} priority={story.priority} role={story.role} status={story.status} />
-               ))}
+               {loading ? (
+                 <div className="animate-pulse space-y-2">
+                   <div className="h-20 bg-gray-300 rounded"></div>
+                   <div className="h-20 bg-gray-300 rounded"></div>
+                 </div>
+               ) : (
+                 stories
+                 .filter(story => story.status === 'done')
+                 .map(story => (
+                    <Card key={story.id} id={story.id} action={story.action} need={story.need} priority={story.priority} role={story.role} status={story.status} />
+                 ))
+               )}
             </div>
          </div>
       </div>

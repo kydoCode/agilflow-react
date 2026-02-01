@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useStore } from "../../store";
+import toast from 'react-hot-toast';
 
 export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave, isEditing }) {
     const { addStory, updateStory, fetchStories } = useStore();
@@ -36,11 +37,13 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
                 priority: task.priority,
             });
             
+            toast.success('Story créée avec succès');
             setTask({ role: 'developer', action: '', need: '', status: 'todo', priority: 'low' });
             await fetchStories();
             setIsModalOpen(false);
         } catch (err) {
             setError(err.message || 'Erreur lors de la création');
+            toast.error(err.message || 'Erreur lors de la création');
         }
     };
 
@@ -49,10 +52,12 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             setError('');
             const { id, ...storyData } = editedStory;
             await updateStory(id, storyData);
+            toast.success('Story mise à jour avec succès');
             await fetchStories();
             setIsModalOpen(false);
         } catch (err) {
             setError(err.message || 'Erreur lors de la mise à jour');
+            toast.error(err.message || 'Erreur lors de la mise à jour');
         }
     };
 

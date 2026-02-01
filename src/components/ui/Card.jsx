@@ -5,6 +5,7 @@ import { MdEdit } from 'react-icons/md';
 import { MdDelete } from 'react-icons/md';
 import Modal from './Modal';
 import { useStore } from '../../store';
+import toast from 'react-hot-toast';
 
 export default function Card({ id, role, action, need, status, priority }) {
     const { deleteStory, updateStory } = useStore();
@@ -29,6 +30,7 @@ export default function Card({ id, role, action, need, status, priority }) {
     const handleDeleteClick = () => {
         if (window.confirm('Êtes-vous sûr de vouloir supprimer cette story ?')) {
             deleteStory(id);
+            toast.success('Story supprimée avec succès');
         }
     };
 
