@@ -1,13 +1,15 @@
 // import { Link } from 'lucide-react'
 import React, { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { useStore } from '../store';
 import dashboard_screen from '../assets/images/screencast_03.png';
 import computer_screen from '../assets/images/desktop_screen.png';
 import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
 
 export default function LandingPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { isAuthenticated } = useStore();
   
     useEffect(() => {
       document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Home');
@@ -15,7 +17,7 @@ export default function LandingPage() {
 
   return (
     <>
-    <div className="min-h-screen bg-gradient-to-br from-[#020B2D] via-[#123363] to-[#0D8B7D]">
+    <main className="min-h-screen bg-gradient-to-br from-[#020B2D] via-[#123363] to-[#0D8B7D]">
     <Header />
       
       {/* Rest of the component remains the same */}
@@ -30,10 +32,10 @@ export default function LandingPage() {
               Effortlessly design, manage and track User Stories as team - the Agile way !
             </h2>
             <button 
-              onClick={() => navigate('/register')}
+              onClick={() => navigate(isAuthenticated ? '/dashboard' : '/register')}
               className="bg-white text-[#123363] px-8 py-3 rounded-full hover:bg-white/90 transition-colors font-medium text-lg active:bg-white/80"
             >
-              Register
+              {isAuthenticated ? 'Dashboard' : 'Register'}
             </button>
 
             {/* <button 
@@ -69,6 +71,9 @@ export default function LandingPage() {
                       <img 
                         src={computer_screen}
                         alt="AgilFlow Dashboard Interface"
+                        width="800"
+                        height="600"
+                        loading="lazy"
                         className="w-full h-auto transform scale-105 group-hover:scale-100 transition-transform duration-700"
                       />
                     </div>
@@ -137,6 +142,9 @@ export default function LandingPage() {
             <img 
               src={dashboard_screen}
               alt="Dashboard Interface"
+              width="1200"
+              height="800"
+              loading="lazy"
               className="w-full h-auto rounded-lg"
             />
           </div>
@@ -144,7 +152,7 @@ export default function LandingPage() {
 
       </div>
       <Footer />
-    </div>
+    </main>
               </>
   )
 }

@@ -74,6 +74,7 @@ export default function Login() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
                 required
               />
               <Mail className="absolute left-3 top-2 text-gray-400" size={20} />
@@ -91,6 +92,7 @@ export default function Login() {
                 placeholder="******************"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
                 required
               />
               <Lock className="absolute left-3 top-2 text-gray-400" size={20} />

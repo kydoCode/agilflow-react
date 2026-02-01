@@ -6,6 +6,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
     const { addStory, updateStory, fetchStories } = useStore();
     const [task, setTask] = useState({ role: 'developer', action: '', need: '', status: 'todo', priority: 'low' });
     const [editedStory, setEditedStory] = useState({ role: 'developer', action: '', need: '', status: 'todo', priority: 'low' });
+    const [error, setError] = useState('');
 
     useEffect(() => {
         if (isEditing && editingStory) {
@@ -25,24 +26,34 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
     }
 
     const handleAddTask = async () => {
-        await addStory({
-            role: task.role,
-            action: task.action,
-            need: task.need,
-            status: task.status,
-            priority: task.priority,
-        });
-        
-        setTask({ role: 'developer', action: '', need: '', status: 'todo', priority: 'low' });
-        await fetchStories();
-        setIsModalOpen(false);
-      };
+        try {
+            setError('');
+            await addStory({
+                role: task.role,
+                action: task.action,
+                need: task.need,
+                status: task.status,
+                priority: task.priority,
+            });
+            
+            setTask({ role: 'developer', action: '', need: '', status: 'todo', priority: 'low' });
+            await fetchStories();
+            setIsModalOpen(false);
+        } catch (err) {
+            setError(err.message || 'Erreur lors de la création');
+        }
+    };
 
     const handleSave = async () => {
-        const { id, ...storyData } = editedStory;
-        await updateStory(id, storyData);
-        await fetchStories();
-        setIsModalOpen(false);
+        try {
+            setError('');
+            const { id, ...storyData } = editedStory;
+            await updateStory(id, storyData);
+            await fetchStories();
+            setIsModalOpen(false);
+        } catch (err) {
+            setError(err.message || 'Erreur lors de la mise à jour');
+        }
     };
 
 
@@ -50,7 +61,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
       return(
         <>
         {modalOpen && (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100]">
       <div className="bg-white p-6 rounded-lg w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Update User Story</h2>
@@ -59,6 +70,11 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
           </button>
         </div>
         <div className="space-y-4">
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm">
+              {error}
+            </div>
+          )}
           <div>
             <label htmlFor="role" className="block text-sm font-medium text-gray-700">
               As a type of user
@@ -154,7 +170,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
     return (
         <>
         {modalOpen && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100]">
              <div className="bg-white p-6 rounded-lg w-full max-w-md">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">Add new user story</h2>
@@ -163,6 +179,11 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
                   </button>
                 </div>
                 <div className="space-y-4">
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm">
+              {error}
+            </div>
+          )}
           <div>
             <label htmlFor="role" className="block text-sm font-medium text-gray-700">
               As a type of user

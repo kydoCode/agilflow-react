@@ -11,6 +11,7 @@ import LandingPage from './pages/landingPage';
 import DemoScreen from './pages/demoScreen';
 import PrivacyPolicy from './pages/privacyPolicy';
 import Legal from './pages/legal';
+import Profile from './pages/profile';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/legal" element={<Legal />} />
         <Route path="*" element={<Navigate to="/" />} />

@@ -53,6 +53,23 @@ export const apiService = {
         return response.json();
     },
 
+    async changePassword(oldPassword, newPassword) {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${BASE_URL}/api/auth/change-password`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ oldPassword, newPassword }),
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || `HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    },
+
     async getStories() {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -66,6 +83,11 @@ export const apiService = {
             },
         });
         if (!response.ok) {
+            if (response.status === 401) {
+                localStorage.removeItem('token');
+                window.location.href = '/login';
+                throw new Error('Session expirée');
+            }
             const message = await response.json();
             throw new Error(message.message || `HTTP error! status: ${response.status}`);
         }
