@@ -8,7 +8,7 @@ import Footer from '../components/ui/Footer';
 
 
 export default function Register() {
-  const Navigate = useNavigate
+  const Navigate = useNavigate();
 
   useEffect(() => {
     document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Register');

@@ -52,20 +52,21 @@ export const apiService = {
     async getStories() {
         const token = localStorage.getItem('token');
         if (!token) {
-            throw new Error('No token found. Please log in.'); // Handle missing token
+            throw new Error('No token found. Please log in.');
         }
         const response = await fetch(`${BASE_URL}/api/userstories`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Include token here
+                'Authorization': `Bearer ${token}`
             },
         });
         if (!response.ok) {
             const message = await response.json();
             throw new Error(message.message || `HTTP error! status: ${response.status}`);
         }
-        return response.json();
+        const result = await response.json();
+        return result.data.userStories;
     },
     
     async getStoryById(id) {
