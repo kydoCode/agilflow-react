@@ -32,6 +32,10 @@ export const apiService = {
                 role
             }),
         });
+        if (!response.ok) {
+            const message = await response.json();
+            throw new Error(message.message || `HTTP error! status: ${response.status}`);
+        }
         return response.json();
     },
     async getProfile(token) {
@@ -81,6 +85,7 @@ export const apiService = {
 
     async updateStory(id, story) {
         const token = localStorage.getItem('token');
+        // console.log('UPDATE payload:', JSON.stringify(story, null, 2));
         const response = await fetch(`${BASE_URL}/api/userstories/${id}`, {
             method: 'PUT',
             headers: {
@@ -89,6 +94,12 @@ export const apiService = {
             },
             body: JSON.stringify(story),
         });
+        if (!response.ok) {
+            const error = await response.json();
+            // console.error('Update error:', error);
+            // console.error('Error details:', error.errors);
+            throw new Error(error.message || `HTTP error! status: ${response.status}`);
+        }
         return response.json();
     },
 
@@ -120,8 +131,9 @@ export const apiService = {
             body: JSON.stringify(story),
         });
         if (!response.ok) {
-            const error = await response.json(); // Capture the error response
-            console.error("Full error response:", error); // Log the full error response
+            const error = await response.json();
+            console.error("Full error response:", error);
+            console.error("Errors detail:", error.errors);
             throw new Error(error.message || `HTTP error! status: ${response.status}`);
         }
         return response.json();

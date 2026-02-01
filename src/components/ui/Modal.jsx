@@ -1,11 +1,17 @@
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useStore } from "../../store";
 
 export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave, isEditing }) {
-    const { addStory, updateStory } = useStore();
-    const [task, setTask] = useState({ role: '', action: '', need: '', status: '', priority: '' });
-    const [editedStory, setEditedStory] = useState(editingStory || { role: '', action: '', need: '', status: '', priority: '' });
+    const { addStory, updateStory, fetchStories } = useStore();
+    const [task, setTask] = useState({ role: 'developer', action: '', need: '', status: 'todo', priority: 'low' });
+    const [editedStory, setEditedStory] = useState({ role: 'developer', action: '', need: '', status: 'todo', priority: 'low' });
+
+    useEffect(() => {
+        if (isEditing && editingStory) {
+            setEditedStory(editingStory);
+        }
+    }, [isEditing, editingStory]);
 
     // Fonction qui permet de mettre à jour le state task en fonction des champs de saisie
     const handleInputChange = (e) => {
@@ -18,25 +24,25 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
 
     }
 
-    const handleAddTask = () => {
-        // Vérifier que tous les champs sont remplis
-        console.log(task);
-
-        addStory({
+    const handleAddTask = async () => {
+        await addStory({
             role: task.role,
             action: task.action,
             need: task.need,
             status: task.status,
             priority: task.priority,
         });
-
+        
+        setTask({ role: 'developer', action: '', need: '', status: 'todo', priority: 'low' });
+        await fetchStories();
         setIsModalOpen(false);
       };
 
-    const handleSave = () => {
-        updateStory(editedStory.id, editedStory);
+    const handleSave = async () => {
+        const { id, ...storyData } = editedStory;
+        await updateStory(id, storyData);
+        await fetchStories();
         setIsModalOpen(false);
-        console.log('Saved!');
     };
 
 
@@ -54,13 +60,13 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
         </div>
         <div className="space-y-4">
           <div>
-            <label htmlFor="as" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="role" className="block text-sm font-medium text-gray-700">
               As a type of user
             </label>
             <select
               id="role"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-              defaultValue={editedStory.role}
+              value={editedStory.role || 'developer'}
               onChange={(e) => setEditedStory({ ...editedStory, role: e.target.value })}
             >
               <option value="developer">Developer</option>
@@ -71,11 +77,11 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             </select>
           </div>
           <div>
-            <label htmlFor="iwant" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="action" className="block text-sm font-medium text-gray-700">
               I want
             </label>
             <input
-              id="iwant"
+              id="action"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
               value={editedStory.action}
               onChange={(e) => setEditedStory({ ...editedStory, action: e.target.value })}
@@ -100,7 +106,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             <select
               id="status"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-              defaultValue={editedStory.status}
+              value={editedStory.status || 'todo'}
               onChange={(e) => setEditedStory({ ...editedStory, status: e.target.value })}
             >
               <option value="todo">Todo</option>
@@ -115,7 +121,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
                     <select
                       id="priority"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                      defaultValue={editedStory.priority}
+                      value={editedStory.priority || 'low'}
                       onChange={(e) => setEditedStory({ ...editedStory, priority: e.target.value })}
                     >
                       <option value="low">Low</option>
@@ -126,7 +132,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
           <div className="mt-6 flex justify-end space-x-3">
             <button
               className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              onClick={() => { setEditedStory({ user: '', action: '', need: '', status: 'todo' , priority: 'medium'}); setIsModalOpen(false); }}
+              onClick={() => { setEditedStory({ user: '', action: '', need: '', status: 'todo' , priority: 'low'}); setIsModalOpen(false); }}
             >
               Cancel
             </button>
@@ -158,7 +164,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
                 </div>
                 <div className="space-y-4">
           <div>
-            <label htmlFor="as" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="role" className="block text-sm font-medium text-gray-700">
               As a type of user
             </label>
             <select

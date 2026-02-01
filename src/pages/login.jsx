@@ -35,16 +35,16 @@ export default function Login() {
     setError('');
 
     try {
-      const data = await apiService.login(email, password);
-      // const profile = await apiService.getProfile(data.token);
+      const response = await apiService.login(email, password);
+      console.log('Login response:', response);
       
-      // Handle successful login (e.g., store token, redirect)
-      // console.log('Login successful:', { data, profile });
-      
-      // TODO: Add logic to store the token and redirect the user
-      localStorage.setItem('token', data.token); // Store the token in localStorage
-      setIsAuthenticated(true);
-      navigate('/dashboard'); // Redirect to the home page or dashboard
+      if (response.data && response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        setIsAuthenticated(true);
+        navigate('/dashboard');
+      } else {
+        setError('Erreur lors de la connexion');
+      }
     } catch (err) {
       setError('Login failed. Please check your credentials.');
       console.error('Login error:', err);

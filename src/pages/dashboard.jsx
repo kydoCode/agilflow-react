@@ -24,13 +24,19 @@ export default function Dashboard() {
 
   const { stories, fetchStories} = useStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
   useEffect(() => {
-    fetchStories();
-  }, [fetchStories]);
+    if (!hasFetched) {
+      fetchStories();
+      setHasFetched(true);
+    }
+  }, []);
 
-  const logout = () => {
-    localStorage.removeItem('token');
+  const { logout } = useStore();
+
+  const handleLogout = () => {
+    logout();
     Navigate('/login');
   }
 
@@ -56,15 +62,15 @@ export default function Dashboard() {
           </button>
           <button
             className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"
-            onClick={logout}
+            onClick={handleLogout}
           >
             Logout
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-         <div className="bg-gray-100 p-4 rounded-lg">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+         <div className="bg-gray-100 p-4 rounded-lg min-h-[200px]">
             <h2 className='text-xl font-semibold mb-2'>Todo</h2>
             <div className='space-y-2'>
                {stories
@@ -75,7 +81,7 @@ export default function Dashboard() {
             </div>
          </div>
 
-         <div className="bg-gray-100 p-4 rounded-lg">
+         <div className="bg-gray-100 p-4 rounded-lg min-h-[200px]">
             <h2 className='text-xl font-semibold mb-2'>Doing</h2>
             <div className='space-y-2'>
                {stories
@@ -86,7 +92,7 @@ export default function Dashboard() {
             </div>
          </div>
 
-         <div className="bg-gray-100 p-4 rounded-lg">
+         <div className="bg-gray-100 p-4 rounded-lg min-h-[200px]">
             <h2 className='text-xl font-semibold mb-2'>Done</h2>
             <div className='space-y-2'>
                {stories
