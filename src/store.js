@@ -12,10 +12,6 @@ export const useStore = create(
 
     initializeAuth: () => {
       const token = localStorage.getItem('token');
-      const currentIsAuthenticated = get().isAuthenticated;
-      if (currentIsAuthenticated) {
-        return; // Skip fetching profile if already authenticated
-      }
       if (token) {
         apiService.getProfile(token)
           .then(profile => {
@@ -23,7 +19,7 @@ export const useStore = create(
           })
           .catch(error => {
             console.error('initializeAuth - error fetching profile:', error);
-            localStorage.removeItem('token'); // Clear invalid token
+            localStorage.removeItem('token');
             set({ isAuthenticated: false, user: null });
           });
       }
@@ -31,17 +27,15 @@ export const useStore = create(
 
     login: async (email, password) => {
       const response = await apiService.login(email, password);
-      if (response.token) {
-        localStorage.setItem('token', response.token); // Store token first
-        try {
-          const profile = await apiService.getProfile(response.token);
-          set({ user: profile, isAuthenticated: true });
-          return true;
-        } catch (error) {
-          console.error("Get profile error:", error);
-          return false;
-        }
+      console.log('Login response:', response);
+      console.log('Token:', response.data?.token);
+      if (response.data && response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        set({ user: response.data.user, isAuthenticated: true });
+        console.log('Token stored:', localStorage.getItem('token'));
+        return true;
       }
+      console.error('No token in response');
       return false;
     },
 
@@ -52,36 +46,40 @@ export const useStore = create(
 
     register: async (name, email, password, role) => {
       const response = await apiService.register(name, email, password, role);
-      if (response.token) {
-        set({ user: response.user, isAuthenticated: true });
-        localStorage.setItem('token', response.token);
+      if (response.data && response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        set({ user: response.data.user, isAuthenticated: true });
       }
     },
 
     addStory: async (story) => {
       const response = await apiService.addStory(story);
+      const newStory = response.data || response;
       set((state) => ({
         stories: [
           ...state.stories,
           {
-            ...response,
-            createdAt: new Date(response.createdAt),
-            updatedAt: new Date(response.updatedAt),
+            ...newStory,
+            createdAt: new Date(newStory.createdAt),
+            updatedAt: new Date(newStory.updatedAt),
           },
         ],
       }));
     },
 
     updateStory: async (id, updatedStory) => {
-      const response = await apiService.updateStory(id, updatedStory);
-      // On récupère la réponse 
-      console.log('Répose update:', response);
-      set((state) => ({
-        stories: state.stories.map((story) =>
-          story.id === id ? { ...story, ...response, updatedAt: new Date(response.updatedAt) } : story
-        ),
-      }));
-      console.log('Stories after update:', get().stories);
+      try {
+        const response = await apiService.updateStory(id, updatedStory);
+        const updatedData = response.data || response;
+        set((state) => ({
+          stories: state.stories.map((story) =>
+            story.id === id ? { ...story, ...updatedData, updatedAt: new Date() } : story
+          ),
+        }));
+      } catch (error) {
+        console.error('Update story error:', error);
+        throw error;
+      }
     },
 
     deleteStory: async (id) => {

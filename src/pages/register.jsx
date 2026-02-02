@@ -8,7 +8,7 @@ import Footer from '../components/ui/Footer';
 
 
 export default function Register() {
-  const Navigate = useNavigate
+  const Navigate = useNavigate();
 
   useEffect(() => {
     document.title = document.title.replace('%REACT_APP_PAGE_TITLE%', 'Register');
@@ -59,6 +59,7 @@ export default function Register() {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
               type="text"
               placeholder="Nom complet"
+              autoComplete="name"
             />
             {errors.name && <p className='text-red-500'>{errors.name?.message}</p>}
             <User className="absolute left-3 top-2 text-gray-400" size={20} />
@@ -74,6 +75,7 @@ export default function Register() {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
               type="email"
               placeholder="Email"
+              autoComplete="email"
             />
             {errors.email && <p className='text-red-500'>{errors.email?.message}</p>}
             <Mail className="absolute left-3 top-2 text-gray-400" size={20} />
@@ -89,6 +91,7 @@ export default function Register() {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
               type="password"
               placeholder="******************"
+              autoComplete="new-password"
             />
             {errors.password && <p className='text-red-500'>{errors.password?.message}</p>}
             <Lock className="absolute left-3 top-2 text-gray-400" size={20} />

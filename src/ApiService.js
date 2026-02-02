@@ -1,38 +1,4 @@
- const BASE_URL = 'https://agilflow-api.vercel.app';
-
-//const BASE_URL = 'http://127.0.0.1:3000';
-/*const BASE_URL = process.env.VERCEL_URL? 
-`https://${process.env.VERCEL_URL}` 
-: 'https://agilflow-api.vercel.app';*/
-
-//console.log('BASE_URL is currently:', BASE_URL);
-
-
-
-// const isProduction = process.env.NODE_ENV === 'production';
-
-// const BASE_URL = isProduction
-//   ? 'https://agilflow-api.vercel.app/api/userstories'
-//   : 'http://127.0.0.1:3000/api/userstories';
-
-// const BASE_URL_TWO = isProduction
-//   ? 'https://agilflow-api.vercel.app/api/auth'
-//   : 'http://127.0.0.1:3000/api/auth';
-
-// const BASE_URL = 'http://127.0.0.1:3000/api/userstories';
-// const BASE_URL_TWO = 'http://127.0.0.1:3000/api/auth';
-
-// Config avec vercel backend
-// const BASE_URL = 'https://agilflow-api.vercel.app/api/userstories';
-// const BASE_URL_TWO = 'https://agilflow-api.vercel.app/api/auth';
-
-// const isProduction = process.env.NODE_ENV === 'production';
-// const BASE_URL = isProduction
-//   ? 'https://agilflow-api.vercel.app/api/userstories'
-//   : 'http://127.0.0.1:3000/api/userstories';
-// const BASE_URL_TWO = isProduction
-//   ? 'https://agilflow-api.vercel.app/api/auth'
-//   : 'http://127.0.0.1:3000/api/auth';
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://agilflow-api.vercel.app';
 
 
 export const apiService = {
@@ -66,6 +32,10 @@ export const apiService = {
                 role
             }),
         });
+        if (!response.ok) {
+            const message = await response.json();
+            throw new Error(message.message || `HTTP error! status: ${response.status}`);
+        }
         return response.json();
     },
     async getProfile(token) {
@@ -83,23 +53,46 @@ export const apiService = {
         return response.json();
     },
 
+    async changePassword(oldPassword, newPassword) {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${BASE_URL}/api/auth/change-password`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ oldPassword, newPassword }),
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || `HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    },
+
     async getStories() {
         const token = localStorage.getItem('token');
         if (!token) {
-            throw new Error('No token found. Please log in.'); // Handle missing token
+            throw new Error('No token found. Please log in.');
         }
         const response = await fetch(`${BASE_URL}/api/userstories`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Include token here
+                'Authorization': `Bearer ${token}`
             },
         });
         if (!response.ok) {
+            if (response.status === 401) {
+                localStorage.removeItem('token');
+                window.location.href = '/login';
+                throw new Error('Session expirée');
+            }
             const message = await response.json();
             throw new Error(message.message || `HTTP error! status: ${response.status}`);
         }
-        return response.json();
+        const result = await response.json();
+        return result.data.userStories;
     },
     
     async getStoryById(id) {
@@ -114,6 +107,7 @@ export const apiService = {
 
     async updateStory(id, story) {
         const token = localStorage.getItem('token');
+        // console.log('UPDATE payload:', JSON.stringify(story, null, 2));
         const response = await fetch(`${BASE_URL}/api/userstories/${id}`, {
             method: 'PUT',
             headers: {
@@ -122,6 +116,12 @@ export const apiService = {
             },
             body: JSON.stringify(story),
         });
+        if (!response.ok) {
+            const error = await response.json();
+            // console.error('Update error:', error);
+            // console.error('Error details:', error.errors);
+            throw new Error(error.message || `HTTP error! status: ${response.status}`);
+        }
         return response.json();
     },
 
@@ -153,8 +153,9 @@ export const apiService = {
             body: JSON.stringify(story),
         });
         if (!response.ok) {
-            const error = await response.json(); // Capture the error response
-            console.error("Full error response:", error); // Log the full error response
+            const error = await response.json();
+            console.error("Full error response:", error);
+            console.error("Errors detail:", error.errors);
             throw new Error(error.message || `HTTP error! status: ${response.status}`);
         }
         return response.json();
