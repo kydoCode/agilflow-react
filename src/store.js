@@ -18,7 +18,7 @@ export const useStore = create(
             set({ isAuthenticated: true, user: profile });
           })
           .catch(error => {
-            if (import.meta.env.DEV) console.error('initializeAuth - error fetching profile:', error);
+            if (process.env.NODE_ENV === 'development') console.error('initializeAuth - error fetching profile:', error);
             localStorage.removeItem('token');
             set({ isAuthenticated: false, user: null });
           });
@@ -27,17 +27,17 @@ export const useStore = create(
 
     login: async (email, password) => {
       const response = await apiService.login(email, password);
-      if (import.meta.env.DEV) {
+      if (process.env.NODE_ENV === 'development') {
         console.log('Login response:', response);
         console.log('Token:', response.data?.token);
       }
       if (response.data && response.data.token) {
         localStorage.setItem('token', response.data.token);
         set({ user: response.data.user, isAuthenticated: true });
-        if (import.meta.env.DEV) console.log('Token stored:', localStorage.getItem('token'));
+        if (process.env.NODE_ENV === 'development') console.log('Token stored:', localStorage.getItem('token'));
         return true;
       }
-      if (import.meta.env.DEV) console.error('No token in response');
+      if (process.env.NODE_ENV === 'development') console.error('No token in response');
       return false;
     },
 
@@ -79,7 +79,7 @@ export const useStore = create(
           ),
         }));
       } catch (error) {
-        if (import.meta.env.DEV) console.error('Update story error:', error);
+        if (process.env.NODE_ENV === 'development') console.error('Update story error:', error);
         throw error;
       }
     },
@@ -103,7 +103,7 @@ export const useStore = create(
         const fetchedStories = await apiService.getStories();
         set({ stories: fetchedStories });
       } catch (error) {
-        if (import.meta.env.DEV) console.error("Fetch stories error:", error);
+        if (process.env.NODE_ENV === 'development') console.error("Fetch stories error:", error);
       }
     },
   })

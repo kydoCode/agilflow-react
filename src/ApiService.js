@@ -139,7 +139,7 @@ export const apiService = {
 
     async addStory(story) {
         const token = localStorage.getItem('token');
-        if (import.meta.env.DEV) {
+        if (process.env.NODE_ENV === 'development') {
             console.log("Request Headers:", {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -156,7 +156,7 @@ export const apiService = {
         });
         if (!response.ok) {
             const error = await response.json();
-            if (import.meta.env.DEV) {
+            if (process.env.NODE_ENV === 'development') {
                 console.error("Full error response:", error);
                 console.error("Errors detail:", error.errors);
             }

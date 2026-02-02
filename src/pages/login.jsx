@@ -36,7 +36,7 @@ export default function Login() {
 
     try {
       const response = await apiService.login(email, password);
-      if (import.meta.env.DEV) console.log('Login response:', response);
+      if (process.env.NODE_ENV === 'development') console.log('Login response:', response);
       
       if (response.data && response.data.token) {
         localStorage.setItem('token', response.data.token);
@@ -47,7 +47,7 @@ export default function Login() {
       }
     } catch (err) {
       setError('Login failed. Please check your credentials.');
-      if (import.meta.env.DEV) console.error('Login error:', err);
+      if (process.env.NODE_ENV === 'development') console.error('Login error:', err);
     } finally {
       setIsLoading(false);
     }
