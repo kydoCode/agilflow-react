@@ -15,15 +15,22 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
         }
     }, [isEditing, editingStory]);
 
-    // Fonction qui permet de mettre à jour le state task en fonction des champs de saisie
+    useEffect(() => {
+        const handleEscape = (e) => {
+            if (e.key === 'Escape' && modalOpen) {
+                setIsModalOpen(false);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+        return () => document.removeEventListener('keydown', handleEscape);
+    }, [modalOpen, setIsModalOpen]);
+
     const handleInputChange = (e) => {
       const { name, value } = e.target;
-
       setTask(prevState => ({
         ...prevState,
         [name]: value
       }))
-
     }
 
     const handleAddTask = async () => {
@@ -61,13 +68,14 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
         }
     };
 
+    const selectClass = "mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50";
 
     if (isEditing) {
       return(
         <>
         {modalOpen && (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100]">
-      <div className="bg-white p-6 rounded-lg w-full max-w-md">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100]" onClick={() => setIsModalOpen(false)}>
+      <div className="bg-white p-6 rounded-lg w-full max-w-md" onClick={(e) => e.stopPropagation()}>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Update User Story</h2>
           <button onClick={() => setIsModalOpen(false)} className="text-gray-500 hover:text-gray-700">
@@ -86,7 +94,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             </label>
             <select
               id="role"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              className={selectClass}
               value={editedStory.role || 'developer'}
               onChange={(e) => setEditedStory({ ...editedStory, role: e.target.value })}
             >
@@ -126,7 +134,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
             <select
               id="status"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              className={selectClass}
               value={editedStory.status || 'todo'}
               onChange={(e) => setEditedStory({ ...editedStory, status: e.target.value })}
             >
@@ -136,20 +144,20 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             </select>
           </div>
           <div>
-                    <label htmlFor="priority" className="block text-sm font-medium text-gray-700">
-                      Priority
-                    </label>
-                    <select
-                      id="priority"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                      value={editedStory.priority || 'low'}
-                      onChange={(e) => setEditedStory({ ...editedStory, priority: e.target.value })}
-                    >
-                      <option value="low">Low</option>
-                      <option value="medium">Medium</option>
-                      <option value="high">High</option>
-                    </select>
-                  </div>
+            <label htmlFor="priority" className="block text-sm font-medium text-gray-700">
+              Priority
+            </label>
+            <select
+              id="priority"
+              className={selectClass}
+              value={editedStory.priority || 'low'}
+              onChange={(e) => setEditedStory({ ...editedStory, priority: e.target.value })}
+            >
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
           <div className="mt-6 flex justify-end space-x-3">
             <button
               className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -175,8 +183,8 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
     return (
         <>
         {modalOpen && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100]">
-             <div className="bg-white p-6 rounded-lg w-full max-w-md">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100]" onClick={() => setIsModalOpen(false)}>
+             <div className="bg-white p-6 rounded-lg w-full max-w-md" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">Add new user story</h2>
                   <button onClick={() => setIsModalOpen(false)} className="text-gray-500 hover:text-gray-700">
@@ -196,7 +204,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             <select
               id="role"
               name="role"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              className={selectClass}
               value={task.role}
               onChange={handleInputChange}
             >
@@ -207,78 +215,78 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
               <option value="team member">Team Member</option>
             </select>
           </div>
-                  <div>
-                    <label htmlFor="action" className="block text-sm font-medium text-gray-700">
-                      I want
-                    </label>
-                    <input
-                      id="action"
-                      name="action"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                      value={task.action}
-                      onChange={handleInputChange}
-                      placeholder="I want..."
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="need" className="block text-sm font-medium text-gray-700">
-                      So that
-                    </label>
-                    <textarea
-                      id="need"
-                      name="need"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                      value={task.need}
-                      onChange={handleInputChange}
-                      placeholder="So that..."
-                      rows={3}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
-                    <select
-                      id="status"
-                      name="status"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                      value={task.status}
-                      onChange={handleInputChange}
-                    >
-                      <option value="todo">Todo</option>
-                      <option value="doing">Doing</option>
-                      <option value="done">Done</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="priority" className="block text-sm font-medium text-gray-700">
-                      Priority
-                    </label>
-                    <select
-                      id="priority"
-                      name="priority"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                      value={task.priority}
-                      onChange={handleInputChange}
-                    >
-                      <option value="low">Low</option>
-                      <option value="medium">Medium</option>
-                      <option value="high">High</option>
-                    </select>
-                  </div>
-                  <div className="mt-6 flex justify-end space-x-3">
-                    <button
-                      className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                      onClick={() => {setTask({as: '', iwant: '', need: '', status: 'todo'}); setIsModalOpen(false)}}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                      onClick={handleAddTask}
-                    >
-                      Add user story
-                    </button>
-                  </div>
-                </div>
+          <div>
+            <label htmlFor="action" className="block text-sm font-medium text-gray-700">
+              I want
+            </label>
+            <input
+              id="action"
+              name="action"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              value={task.action}
+              onChange={handleInputChange}
+              placeholder="I want..."
+            />
+          </div>
+          <div>
+            <label htmlFor="need" className="block text-sm font-medium text-gray-700">
+              So that
+            </label>
+            <textarea
+              id="need"
+              name="need"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              value={task.need}
+              onChange={handleInputChange}
+              placeholder="So that..."
+              rows={3}
+            />
+          </div>
+          <div>
+            <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
+            <select
+              id="status"
+              name="status"
+              className={selectClass}
+              value={task.status}
+              onChange={handleInputChange}
+            >
+              <option value="todo">Todo</option>
+              <option value="doing">Doing</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="priority" className="block text-sm font-medium text-gray-700">
+              Priority
+            </label>
+            <select
+              id="priority"
+              name="priority"
+              className={selectClass}
+              value={task.priority}
+              onChange={handleInputChange}
+            >
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div className="mt-6 flex justify-end space-x-3">
+            <button
+              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              onClick={() => {setTask({as: '', iwant: '', need: '', status: 'todo'}); setIsModalOpen(false)}}
+            >
+              Cancel
+            </button>
+            <button
+              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              onClick={handleAddTask}
+            >
+              Add user story
+            </button>
+          </div>
+        </div>
              </div>
              </div>
              )}

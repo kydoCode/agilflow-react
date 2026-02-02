@@ -58,15 +58,15 @@ export default function Card({ id, role, action, need, status, priority }) {
 
     return (
         <article className="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 relative">
-            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex space-x-2 z-10">
+            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex space-x-1 sm:space-x-2 z-10">
                 <button aria-label="View" className="text-gray-500 hover:text-green-500 bg-white/90 rounded p-1 shadow-sm">
-                    <Eye onClick={handleViewClick} size={20} />
+                    <Eye onClick={handleViewClick} size={16} className="sm:w-5 sm:h-5" />
                 </button>
                 <button aria-label="Edit" className="text-gray-500 hover:text-blue-500 bg-white/90 rounded p-1 shadow-sm">
-                    <MdEdit onClick={handleEditClick} size={20} />
+                    <MdEdit onClick={handleEditClick} size={16} className="sm:w-5 sm:h-5" />
                 </button>
                 <button aria-label="Delete" className="text-gray-500 hover:text-red-500 bg-white/90 rounded p-1 shadow-sm">
-                    <MdDelete onClick={handleDeleteClick} size={20} />
+                    <MdDelete onClick={handleDeleteClick} size={16} className="sm:w-5 sm:h-5" />
                 </button>
             </div>
 

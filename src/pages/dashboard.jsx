@@ -52,18 +52,13 @@ export default function Dashboard() {
       
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
         <h1 className="text-2xl font-bold">Kanban Board</h1>
-        <div className="flex items-center gap-2">
-          <div className="rounded-full h-8 w-8 bg-gray-300 flex items-center justify-center">
-            {useStore.getState().user?.firstName ? useStore.getState().user.firstName.charAt(0).toUpperCase() : '?'}
-          </div>
-          <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center text-sm sm:text-base"
-            onClick={() => setIsModalOpen(true)}
-          >
-            <Plus className="mr-2" size={16} />
-            Add Task
-          </button>
-        </div>
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center text-sm sm:text-base"
+          onClick={() => setIsModalOpen(true)}
+        >
+          <Plus className="mr-2" size={16} />
+          Add Task
+        </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
