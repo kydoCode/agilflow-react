@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { useStore } from '../store';
 import { useNavigate } from 'react-router-dom';
 import { apiService } from '../ApiService';
@@ -45,6 +46,7 @@ const Profile = () => {
     try {
       await apiService.changePassword(oldPassword, newPassword);
       setSuccess('Mot de passe modifié avec succès');
+      toast.success('Mot de passe modifié avec succès');
       setOldPassword('');
       setNewPassword('');
       setConfirmPassword('');
@@ -53,7 +55,9 @@ const Profile = () => {
         setSuccess('');
       }, 2000);
     } catch (err) {
-      setError(err.message);
+      const errorMsg = err.message || 'Erreur lors du changement de mot de passe';
+      setError(errorMsg);
+      toast.error(errorMsg);
     }
   };
 

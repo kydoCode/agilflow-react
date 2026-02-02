@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Lock, User, Users } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { useStore } from '../store';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -26,12 +27,15 @@ export default function Register() {
 
     try {
       await registerUser(data.name, data.email, data.password, data.role);
-      setSuccess('Inscription réussie ! Vous allez être redirigé...');
+      setSuccess('Inscription réussie ! Redirection...');
+      toast.success('Inscription réussie ! Bienvenue sur AgilFlow');
       setTimeout(() => {
         Navigate('/dashboard');
-      }, 3000);
+      }, 2000);
     } catch (err) {
-      setError('Erreur lors de l\'inscription. Veuillez réessayer.');
+      const errorMsg = 'Erreur lors de l\'inscription. Veuillez réessayer.';
+      setError(errorMsg);
+      toast.error(errorMsg);
       if (process.env.NODE_ENV === 'development') console.error(err);
     }
   };
