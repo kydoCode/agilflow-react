@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Lock, User, Users } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { useStore } from '../store';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -26,12 +27,15 @@ export default function Register() {
 
     try {
       await registerUser(data.name, data.email, data.password, data.role);
-      setSuccess('Inscription réussie ! Vous allez être redirigé...');
+      setSuccess('Inscription réussie ! Redirection...');
+      toast.success('Inscription réussie ! Bienvenue sur AgilFlow');
       setTimeout(() => {
         Navigate('/dashboard');
-      }, 3000);
+      }, 2000);
     } catch (err) {
-      setError('Erreur lors de l\'inscription. Veuillez réessayer.');
+      const errorMsg = 'Erreur lors de l\'inscription. Veuillez réessayer.';
+      setError(errorMsg);
+      toast.error(errorMsg);
       if (process.env.NODE_ENV === 'development') console.error(err);
     }
   };
@@ -112,7 +116,8 @@ export default function Register() {
                 <option value="tester">Tester</option>
                 <option value="product owner">Product Owner</option>
                 <option value="scrum master">Scrum Master</option>
-                <option value="team member">Team Member</option>
+                <option value="teammate">Teammate</option>
+                <option value="administrator">Administrator</option>
               </select>
               <Users className="absolute left-3 top-2 text-gray-400" size={20} />
               {errors.role && <p className='text-red-500'>{errors.role?.message}</p>}
@@ -120,7 +125,7 @@ export default function Register() {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               S'inscrire

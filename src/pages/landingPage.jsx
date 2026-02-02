@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useStore } from '../store';
+import dashboard_screen_webp from '../assets/images/screencast_03.webp';
 import dashboard_screen from '../assets/images/screencast_03.png';
+import computer_screen_webp from '../assets/images/desktop_screen.webp';
 import computer_screen from '../assets/images/desktop_screen.png';
 import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
@@ -68,6 +70,8 @@ export default function LandingPage() {
 
                     {/* Dashboard Content */}
                     <div className="pt-8">
+                      <picture>
+                      <source srcSet={computer_screen_webp} type="image/webp" />
                       <img 
                         src={computer_screen}
                         alt="AgilFlow Dashboard Interface"
@@ -76,6 +80,7 @@ export default function LandingPage() {
                         loading="lazy"
                         className="w-full h-auto transform scale-105 group-hover:scale-100 transition-transform duration-700"
                       />
+                    </picture>
                     </div>
 
                     {/* Screen Reflection */}
@@ -139,14 +144,17 @@ export default function LandingPage() {
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
             </div>
-            <img 
-              src={dashboard_screen}
-              alt="Dashboard Interface"
-              width="1200"
-              height="800"
-              loading="lazy"
-              className="w-full h-auto rounded-lg"
-            />
+            <picture>
+              <source srcSet={dashboard_screen_webp} type="image/webp" />
+              <img 
+                src={dashboard_screen}
+                alt="Dashboard Interface"
+                width="1200"
+                height="800"
+                loading="lazy"
+                className="w-full h-auto rounded-lg"
+              />
+            </picture>
           </div>
         </div>
 

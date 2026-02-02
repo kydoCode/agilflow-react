@@ -1,6 +1,7 @@
 import { Lock, Mail } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { apiService } from "../../src/ApiService";
 import { useStore } from '../store';
 import Header from '../components/ui/Header';
@@ -41,12 +42,16 @@ export default function Login() {
       if (response.data && response.data.token) {
         localStorage.setItem('token', response.data.token);
         setIsAuthenticated(true);
+        toast.success('Connexion réussie !');
         navigate('/dashboard');
       } else {
         setError('Erreur lors de la connexion');
+        toast.error('Erreur lors de la connexion');
       }
     } catch (err) {
-      setError('Login failed. Please check your credentials.');
+      const errorMsg = 'Identifiants incorrects. Veuillez réessayer.';
+      setError(errorMsg);
+      toast.error(errorMsg);
       if (process.env.NODE_ENV === 'development') console.error('Login error:', err);
     } finally {
       setIsLoading(false);
@@ -100,7 +105,7 @@ export default function Login() {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
               type="submit"
               disabled={isLoading}
             >
