@@ -112,7 +112,8 @@ export default function Register() {
                 <option value="tester">Tester</option>
                 <option value="product owner">Product Owner</option>
                 <option value="scrum master">Scrum Master</option>
-                <option value="team member">Team Member</option>
+                <option value="teammate">Teammate</option>
+                <option value="administrator">Administrator</option>
               </select>
               <Users className="absolute left-3 top-2 text-gray-400" size={20} />
               {errors.role && <p className='text-red-500'>{errors.role?.message}</p>}
@@ -120,7 +121,7 @@ export default function Register() {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               S'inscrire

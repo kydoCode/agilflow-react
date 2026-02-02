@@ -63,7 +63,7 @@ const Profile = () => {
       <main className="flex-1 container mx-auto px-4 py-8 max-w-2xl">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="flex flex-col items-center mb-8">
-            <div className="w-24 h-24 rounded-full bg-blue-500 flex items-center justify-center text-white text-4xl font-bold mb-4">
+            <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-4xl font-bold mb-4">
               {initial}
             </div>
             <h1 className="text-2xl font-bold text-gray-800">{user.name}</h1>
@@ -102,7 +102,7 @@ const Profile = () => {
             <div className="mt-8 space-y-3">
               <button
                 onClick={() => setShowPasswordForm(true)}
-                className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
+                className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
               >
                 <Lock className="w-4 h-4" />
                 Modifier le mot de passe
@@ -199,7 +199,7 @@ const Profile = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Enregistrer
                 </button>
