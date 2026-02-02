@@ -139,11 +139,13 @@ export const apiService = {
 
     async addStory(story) {
         const token = localStorage.getItem('token');
-        console.log("Request Headers:", {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        });
-        console.log("Request Body:", JSON.stringify(story));
+        if (process.env.NODE_ENV === 'development') {
+            console.log("Request Headers:", {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            });
+            console.log("Request Body:", JSON.stringify(story));
+        }
         const response = await fetch(`${BASE_URL}/api/userstories`, {
             method: 'POST',
             headers: {
@@ -154,8 +156,10 @@ export const apiService = {
         });
         if (!response.ok) {
             const error = await response.json();
-            console.error("Full error response:", error);
-            console.error("Errors detail:", error.errors);
+            if (process.env.NODE_ENV === 'development') {
+                console.error("Full error response:", error);
+                console.error("Errors detail:", error.errors);
+            }
             throw new Error(error.message || `HTTP error! status: ${response.status}`);
         }
         return response.json();

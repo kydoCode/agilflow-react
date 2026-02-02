@@ -32,7 +32,7 @@ export default function Register() {
       }, 3000);
     } catch (err) {
       setError('Erreur lors de l\'inscription. Veuillez réessayer.');
-      console.error(err);
+      if (process.env.NODE_ENV === 'development') console.error(err);
     }
   };
 
