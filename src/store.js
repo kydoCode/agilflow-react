@@ -18,7 +18,7 @@ export const useStore = create(
             set({ isAuthenticated: true, user: profile });
           })
           .catch(error => {
-            console.error('initializeAuth - error fetching profile:', error);
+            if (import.meta.env.DEV) console.error('initializeAuth - error fetching profile:', error);
             localStorage.removeItem('token');
             set({ isAuthenticated: false, user: null });
           });
@@ -27,15 +27,17 @@ export const useStore = create(
 
     login: async (email, password) => {
       const response = await apiService.login(email, password);
-      console.log('Login response:', response);
-      console.log('Token:', response.data?.token);
+      if (import.meta.env.DEV) {
+        console.log('Login response:', response);
+        console.log('Token:', response.data?.token);
+      }
       if (response.data && response.data.token) {
         localStorage.setItem('token', response.data.token);
         set({ user: response.data.user, isAuthenticated: true });
-        console.log('Token stored:', localStorage.getItem('token'));
+        if (import.meta.env.DEV) console.log('Token stored:', localStorage.getItem('token'));
         return true;
       }
-      console.error('No token in response');
+      if (import.meta.env.DEV) console.error('No token in response');
       return false;
     },
 
@@ -77,7 +79,7 @@ export const useStore = create(
           ),
         }));
       } catch (error) {
-        console.error('Update story error:', error);
+        if (import.meta.env.DEV) console.error('Update story error:', error);
         throw error;
       }
     },
@@ -101,7 +103,7 @@ export const useStore = create(
         const fetchedStories = await apiService.getStories();
         set({ stories: fetchedStories });
       } catch (error) {
-        console.error("Fetch stories error:", error);
+        if (import.meta.env.DEV) console.error("Fetch stories error:", error);
       }
     },
   })
