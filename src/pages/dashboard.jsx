@@ -6,6 +6,7 @@ import Modal from '../components/ui/Modal';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/ui/Header';
+import Footer from '../components/ui/Footer';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function Dashboard() {
@@ -118,6 +119,7 @@ export default function Dashboard() {
       </div>
           <Modal modalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
     </div>
+    <Footer />
     </>
   );
 }

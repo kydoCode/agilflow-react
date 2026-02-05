@@ -23,19 +23,19 @@ export default function LandingPage() {
     <Header />
       
       {/* Rest of the component remains the same */}
-      <div className="container mx-auto px-4 pt-16 pb-32">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-2 sm:px-4 pt-8 sm:pt-16 pb-16 sm:pb-32">
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-12 items-center">
           <div>
-            <h1 className="text-5xl font-bold text-white mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
               AgilFlow
             </h1>
-            <h2 className="text-xl text-white/80 mb-8 leading-relaxed">
+            <h2 className="text-base sm:text-lg md:text-xl text-white/80 mb-6 sm:mb-8 leading-relaxed">
               {/*Créez, gérez, suivez et travaillez collaborativement vos US projets métiers.*/}
               Effortlessly design, manage and track User Stories as team - the Agile way !
             </h2>
             <button 
               onClick={() => navigate(isAuthenticated ? '/dashboard' : '/register')}
-              className="bg-white text-[#123363] px-8 py-3 rounded-full hover:bg-white/90 transition-colors font-medium text-lg active:bg-white/80"
+              className="bg-white text-[#123363] px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-white/90 transition-colors font-medium text-base sm:text-lg active:bg-white/80"
             >
               {isAuthenticated ? 'Dashboard' : 'Register'}
             </button>
@@ -49,8 +49,7 @@ export default function LandingPage() {
           </div>
 
           {/* 3D Dashboard Display */}
-          {/* 3D Dashboard Display */}
-          <div className="relative perspective-[2000px]">
+          <div className="relative perspective-[2000px] hidden md:block">
             {/* Main Display Container */}
             <div className="relative transform rotate-y-[-20deg] rotate-x-[10deg] hover:rotate-y-[-10deg] transition-transform duration-700 ease-out group">
               {/* Monitor Frame */}
@@ -103,7 +102,7 @@ export default function LandingPage() {
             </div>
 
             {/* Floating Elements */}
-            <div className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 rotate-12 opacity-90">
+            <div className="hidden lg:block absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 rotate-12 opacity-90">
               <div className="bg-gradient-to-br from-[#0D8B7D] to-[#123363] rounded-2xl p-4 shadow-xl">
                 <div className="w-20 h-20 flex items-center justify-center">
                   <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,7 +112,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 transform -translate-x-1/4 translate-y-1/4 -rotate-12 opacity-90">
+            <div className="hidden lg:block absolute bottom-0 left-0 transform -translate-x-1/4 translate-y-1/4 -rotate-12 opacity-90">
               <div className="bg-gradient-to-br from-[#123363] to-[#0D8B7D] rounded-2xl p-4 shadow-xl">
                 <div className="w-16 h-16 flex items-center justify-center">
                   <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -126,8 +125,8 @@ export default function LandingPage() {
         </div>
 
         {/* Slogan */}
-        <div className="text-center py-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+        <div className="text-center py-10 sm:py-20">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight">
             <span className="block mb-2 opacity-90">Simplify.</span>
             <span className="block mb-2 opacity-90">Collaborate.</span>
             <span className="block opacity-90">Succeed.</span>
@@ -135,13 +134,13 @@ export default function LandingPage() {
         </div>
 
         {/* Dashboard Mockup */}
-        <div className="relative">
-          <div className="bg-[#0B1E3D] rounded-2xl shadow-2xl p-4 transform rotate-3 hover:rotate-0 transition-transform duration-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+        <div className="relative px-2 sm:px-0">
+          <div className="bg-[#0B1E3D] rounded-xl sm:rounded-2xl shadow-2xl p-2 sm:p-4 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+            <div className="flex items-center justify-between mb-2 sm:mb-4">
+              <div className="flex space-x-1 sm:space-x-2">
+                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500"></div>
+                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500"></div>
               </div>
             </div>
             <picture>
@@ -159,7 +158,7 @@ export default function LandingPage() {
         </div>
 
       </div>
-      <Footer />
+      <Footer transparent={true} />
     </main>
               </>
   )

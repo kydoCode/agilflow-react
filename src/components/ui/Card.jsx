@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FiFlag } from 'react-icons/fi'; // replaced by Flag from lucid-react
 import { Flag, Eye } from "lucide-react";
 import { MdEdit } from 'react-icons/md';
@@ -15,6 +15,16 @@ export default function Card({ id, role, action, need, status, priority }) {
     const [modalId, setModalId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+
+    useEffect(() => {
+        const handleEscape = (e) => {
+            if (e.key === 'Escape' && viewModal) {
+                setViewModal(false);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+        return () => document.removeEventListener('keydown', handleEscape);
+    }, [viewModal]);
 
     const handleViewClick = () => {
         setViewModal(true);
@@ -57,22 +67,36 @@ export default function Card({ id, role, action, need, status, priority }) {
 
 
     return (
-        <article className="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 relative">
-            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex space-x-1 sm:space-x-2 z-10">
-                <button aria-label="View" className="text-gray-500 hover:text-green-500 bg-white/90 rounded p-1 shadow-sm">
-                    <Eye onClick={handleViewClick} size={16} className="sm:w-5 sm:h-5" />
+        <article className="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 relative">
+            {/* Actions en haut à droite - Taille tactile 44x44px minimum */}
+            <div className="absolute top-1 right-1 sm:top-2 sm:right-2 md:top-3 md:right-3 flex flex-col gap-0.5 sm:gap-1 z-10">
+                <button 
+                    onClick={handleViewClick}
+                    aria-label="Voir les détails de la story"
+                    className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 flex items-center justify-center text-gray-600 hover:text-green-600 bg-white hover:bg-green-50 rounded-md shadow-sm border border-gray-200 hover:border-green-300 transition-colors"
+                >
+                    <Eye size={14} className="sm:w-4 sm:h-4 md:w-[18px] md:h-[18px] lg:w-5 lg:h-5" />
                 </button>
-                <button aria-label="Edit" className="text-gray-500 hover:text-blue-500 bg-white/90 rounded p-1 shadow-sm">
-                    <MdEdit onClick={handleEditClick} size={16} className="sm:w-5 sm:h-5" />
+                <button 
+                    onClick={handleEditClick}
+                    aria-label="Modifier la story"
+                    className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 flex items-center justify-center text-gray-600 hover:text-blue-600 bg-white hover:bg-blue-50 rounded-md shadow-sm border border-gray-200 hover:border-blue-300 transition-colors"
+                >
+                    <MdEdit size={14} className="sm:w-4 sm:h-4 md:w-[18px] md:h-[18px] lg:w-5 lg:h-5" />
                 </button>
-                <button aria-label="Delete" className="text-gray-500 hover:text-red-500 bg-white/90 rounded p-1 shadow-sm">
-                    <MdDelete onClick={handleDeleteClick} size={16} className="sm:w-5 sm:h-5" />
+                <button 
+                    onClick={handleDeleteClick}
+                    aria-label="Supprimer la story"
+                    className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 flex items-center justify-center text-gray-600 hover:text-red-600 bg-white hover:bg-red-50 rounded-md shadow-sm border border-gray-200 hover:border-red-300 transition-colors"
+                >
+                    <MdDelete size={14} className="sm:w-4 sm:h-4 md:w-[18px] md:h-[18px] lg:w-5 lg:h-5" />
                 </button>
             </div>
 
-             <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 z-10">
-                    <Flag size={20} color={priorityColor}/>
-                </div>
+            {/* Priorité en bas à droite */}
+            <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 z-10">
+                <Flag size={16} className="sm:w-5 sm:h-5" color={priorityColor}/>
+            </div>
 
 
             <Modal
@@ -133,27 +157,28 @@ export default function Card({ id, role, action, need, status, priority }) {
                 </div>
             )}
 
-            <div className="space-y-3 sm:space-y-4 pr-8">
-                <div className="flex items-start space-x-2">
-                    <span className="px-2 py-1 sm:px-3 bg-blue-100 text-blue-700 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap flex-shrink-0">
+            {/* Contenu avec padding-right pour éviter chevauchement icônes */}
+            <div className="space-y-2 sm:space-y-3 md:space-y-4 pr-8 sm:pr-9 md:pr-10 lg:pr-12">
+                <div className="flex items-start">
+                    <span className="px-2 py-0.5 sm:px-2 sm:py-1 md:px-3 bg-blue-100 text-blue-700 rounded-full text-xs sm:text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0">
                         En tant que {role}
                     </span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-start space-y-1 sm:space-y-0 sm:space-x-2">
-                    <span className="px-2 py-1 sm:px-3 bg-green-100 text-green-700 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap flex-shrink-0">
+                <div className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-2">
+                    <span className="px-2 py-0.5 sm:px-2 sm:py-1 md:px-3 bg-green-100 text-green-700 rounded-full text-xs sm:text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0">
                         je veux
                     </span>
-                    <p className="text-sm sm:text-base text-gray-800 font-medium break-words overflow-wrap-anywhere w-full line-clamp-2">
+                    <p className="text-xs sm:text-sm md:text-base text-gray-800 font-medium break-words overflow-wrap-anywhere w-full line-clamp-2 pl-2 md:pl-0 sm:pl-3">
                         {action}
                     </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-start space-y-1 sm:space-y-0 sm:space-x-2">
-                    <span className="px-2 py-1 sm:px-3 bg-purple-100 text-purple-700 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap flex-shrink-0">
+                <div className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-2">
+                    <span className="px-2 py-0.5 sm:px-2 sm:py-1 md:px-3 bg-purple-100 text-purple-700 rounded-full text-xs sm:text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0">
                         pour/afin de
                     </span>
-                    <p className="text-sm sm:text-base text-gray-800 font-medium break-words overflow-wrap-anywhere w-full line-clamp-2">
+                    <p className="text-xs sm:text-sm md:text-base text-gray-800 font-medium break-words overflow-wrap-anywhere w-full line-clamp-2 pl-2 md:pl-0 sm:pl-3">
                         {need}
                     </p>
                 </div>
