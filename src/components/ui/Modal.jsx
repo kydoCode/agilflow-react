@@ -68,7 +68,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
         }
     };
 
-    const selectClass = "mt-1 block w-full rounded-md border border-gray-300 pl-3 pr-10 py-2 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50";
+    const selectClass = "mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50";
 
     if (isEditing) {
       return(
