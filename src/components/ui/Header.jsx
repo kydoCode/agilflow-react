@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useStore } from '../../store';
-import logo_webp from '../../assets/images/agilflow_logo_nobg.webp';
 import logo from '../../assets/images/agilflow_logo_nobg.png';
 
 
@@ -25,10 +24,7 @@ export default function Header({classToPass}) {
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
                   <Link to="/">
-                    <picture>
-                      <source srcSet={logo_webp} type="image/webp" />
-                      <img src={logo} alt="AgilFlow Logo" width="32" height="32" className="w-8 h-8"/>
-                    </picture>
+                    <img src={logo} alt="AgilFlow Logo" width="32" height="32" className="w-8 h-8"/>
                   </Link>
                 </div>
                 <Link to="/" className="text-white text-2xl font-bold relative">
