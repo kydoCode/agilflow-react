@@ -68,14 +68,14 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
         }
     };
 
-    const selectClass = "mt-1 block w-full rounded-md border border-gray-300 pl-3 pr-10 py-2 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50";
+    const selectClass = "mt-1 block w-full rounded-md border border-gray-300 pl-3 pr-8 py-2 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-sm";
 
     if (isEditing) {
       return(
         <>
         {modalOpen && (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100] p-3 sm:p-4" onClick={() => setIsModalOpen(false)}>
-      <div className="bg-white p-4 sm:p-6 rounded-lg w-full max-w-md" onClick={(e) => e.stopPropagation()}>
+      <div className="bg-white p-4 sm:p-6 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Update User Story</h2>
           <button onClick={() => setIsModalOpen(false)} className="text-gray-500 hover:text-gray-700 flex-shrink-0">
@@ -111,7 +111,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             </label>
             <input
               id="action"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-sm placeholder:text-sm"
               value={editedStory.action}
               onChange={(e) => setEditedStory({ ...editedStory, action: e.target.value })}
               placeholder="I want..."
@@ -123,7 +123,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             </label>
             <textarea
               id="need"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-sm placeholder:text-sm"
               value={editedStory.need}
               onChange={(e) => setEditedStory({ ...editedStory, need: e.target.value })}
               placeholder="Need..."
@@ -158,15 +158,15 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
               <option value="high">High</option>
             </select>
           </div>
-          <div className="mt-6 flex justify-end space-x-3">
+          <div className="mt-6 flex flex-col sm:flex-row justify-end gap-2 sm:gap-3">
             <button
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 w-full sm:w-auto"
               onClick={() => { setEditedStory({ user: '', action: '', need: '', status: 'todo' , priority: 'low'}); setIsModalOpen(false); }}
             >
               Cancel
             </button>
             <button
-              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 w-full sm:w-auto"
               onClick={handleSave}
             >
               Save changes
@@ -184,7 +184,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
         <>
         {modalOpen && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100] p-3 sm:p-4" onClick={() => setIsModalOpen(false)}>
-             <div className="bg-white p-4 sm:p-6 rounded-lg w-full max-w-md" onClick={(e) => e.stopPropagation()}>
+             <div className="bg-white p-4 sm:p-6 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">Add new user story</h2>
                   <button onClick={() => setIsModalOpen(false)} className="text-gray-500 hover:text-gray-700 flex-shrink-0">
@@ -222,7 +222,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             <input
               id="action"
               name="action"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-sm placeholder:text-sm"
               value={task.action}
               onChange={handleInputChange}
               placeholder="I want..."
@@ -235,7 +235,7 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
             <textarea
               id="need"
               name="need"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-sm placeholder:text-sm"
               value={task.need}
               onChange={handleInputChange}
               placeholder="So that..."
@@ -272,15 +272,15 @@ export default function Modal({ modalOpen, setIsModalOpen, editingStory, onSave,
               <option value="high">High</option>
             </select>
           </div>
-          <div className="mt-6 flex justify-end space-x-3">
+          <div className="mt-6 flex flex-col sm:flex-row justify-end gap-2 sm:gap-3">
             <button
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 w-full sm:w-auto"
               onClick={() => {setTask({as: '', iwant: '', need: '', status: 'todo'}); setIsModalOpen(false)}}
             >
               Cancel
             </button>
             <button
-              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 w-full sm:w-auto"
               onClick={handleAddTask}
             >
               Add user story
