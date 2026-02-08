@@ -160,13 +160,13 @@ export default function Card({ id, role, action, need, status, priority }) {
             {/* Contenu avec padding-right pour éviter chevauchement icônes */}
             <div className="space-y-2 sm:space-y-3 md:space-y-4 pr-8 sm:pr-9 md:pr-10 lg:pr-12">
                 <div className="flex items-start">
-                    <span className="px-2 py-0.5 sm:px-2 sm:py-1 md:px-3 bg-blue-100 text-blue-700 rounded-full text-xs sm:text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0">
+                    <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 md:px-3 bg-blue-100 text-blue-700 rounded-full text-[0.625rem] sm:text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0 max-w-full overflow-hidden text-ellipsis">
                         En tant que {role}
                     </span>
                 </div>
 
                 <div className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-2">
-                    <span className="px-2 py-0.5 sm:px-2 sm:py-1 md:px-3 bg-green-100 text-green-700 rounded-full text-xs sm:text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0">
+                    <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 md:px-3 bg-green-100 text-green-700 rounded-full text-[0.625rem] sm:text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0">
                         je veux
                     </span>
                     <p className="text-xs sm:text-sm md:text-base text-gray-800 font-medium break-words overflow-wrap-anywhere w-full line-clamp-2 pl-2 md:pl-0 sm:pl-3">
@@ -175,7 +175,7 @@ export default function Card({ id, role, action, need, status, priority }) {
                 </div>
 
                 <div className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-2">
-                    <span className="px-2 py-0.5 sm:px-2 sm:py-1 md:px-3 bg-purple-100 text-purple-700 rounded-full text-xs sm:text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0">
+                    <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 md:px-3 bg-purple-100 text-purple-700 rounded-full text-[0.625rem] sm:text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0">
                         pour/afin de
                     </span>
                     <p className="text-xs sm:text-sm md:text-base text-gray-800 font-medium break-words overflow-wrap-anywhere w-full line-clamp-2 pl-2 md:pl-0 sm:pl-3">
@@ -186,7 +186,7 @@ export default function Card({ id, role, action, need, status, priority }) {
 
             <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100">
                 <div className="flex justify-between items-center">
-                    <div className="flex space-x-2">
+                    <div className="flex space-x-2 mr-2">
                         <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
                             Story #{id}
                         </span>

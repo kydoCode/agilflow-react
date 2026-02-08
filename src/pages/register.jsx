@@ -60,7 +60,7 @@ export default function Register() {
             <div className="relative">
             <input
               {...register("name", { required: "Ce champ est obligatoire" })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10 text-sm placeholder:text-sm"
               type="text"
               placeholder="Nom complet"
               autoComplete="name"
@@ -76,7 +76,7 @@ export default function Register() {
             <div className="relative">
             <input
               {...register("email", { required: "L'email est obligatoire", pattern: { value: /^\S+@\S+$/i, message: "Email invalide" } })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10 text-sm placeholder:text-sm"
               type="email"
               placeholder="Email"
               autoComplete="email"
@@ -92,7 +92,7 @@ export default function Register() {
             <div className="relative">
             <input
               {...register("password", { required: "Le mot de passe est obligatoire", minLength: { value: 8, message: "Le mot de passe doit contenir au moins 8 caractères" } })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10 text-sm placeholder:text-sm"
               type="password"
               placeholder="******************"
               autoComplete="new-password"
@@ -108,7 +108,7 @@ export default function Register() {
             <div className="relative">
               <select
                 {...register("role", { required: "Le role est obligatoire" })}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10 text-sm"
                 id="role"
                 required
               >
@@ -123,14 +123,14 @@ export default function Register() {
               {errors.role && <p className='text-red-500'>{errors.role?.message}</p>}
             </div>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0">
             <button
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto"
               type="submit"
             >
               S'inscrire
             </button>
-            <Link to="/login" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" >Log in</Link>
+            <Link to="/login" className="inline-block text-center font-bold text-sm text-blue-500 hover:text-blue-800" >Log in</Link>
           </div>
         </form>
       </div>

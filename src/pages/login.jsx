@@ -73,7 +73,7 @@ export default function Login() {
             </label>
             <div className="relative">
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10 text-sm placeholder:text-sm"
                 id="email"
                 type="email"
                 placeholder="Email"
@@ -91,7 +91,7 @@ export default function Login() {
             </label>
             <div className="relative">
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline pl-10"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline pl-10 text-sm placeholder:text-sm"
                 id="password"
                 type="password"
                 placeholder="******************"
@@ -103,15 +103,15 @@ export default function Login() {
               <Lock className="absolute left-3 top-2 text-gray-400" size={20} />
             </div>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0">
             <button
-              className={`bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
               type="submit"
               disabled={isLoading}
             >
               {isLoading ? 'Connexion...' : 'Se connecter'}
             </button>
-            <Link to="/register" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" >Register</Link>
+            <Link to="/register" className="inline-block text-center font-bold text-sm text-blue-500 hover:text-blue-800" >Register</Link>
             {/* <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
               Mot de passe oublié ?
             </a> */}

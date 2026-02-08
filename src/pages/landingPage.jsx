@@ -102,7 +102,7 @@ export default function LandingPage() {
             </div>
 
             {/* Floating Elements */}
-            <div className="hidden lg:block absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 rotate-12 opacity-90">
+            <div className="hidden xl:block absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 rotate-12 opacity-90">
               <div className="bg-gradient-to-br from-[#0D8B7D] to-[#123363] rounded-2xl p-4 shadow-xl">
                 <div className="w-20 h-20 flex items-center justify-center">
                   <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,7 +112,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="hidden lg:block absolute bottom-0 left-0 transform -translate-x-1/4 translate-y-1/4 -rotate-12 opacity-90">
+            <div className="hidden xl:block absolute bottom-0 left-0 transform -translate-x-1/4 translate-y-1/4 -rotate-12 opacity-90">
               <div className="bg-gradient-to-br from-[#123363] to-[#0D8B7D] rounded-2xl p-4 shadow-xl">
                 <div className="w-16 h-16 flex items-center justify-center">
                   <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

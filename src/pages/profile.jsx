@@ -63,7 +63,7 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header />
+      <Header classToPass={"bg-gradient-to-br from-[#020B2D] via-[#123363] to-[#0D8B7D]"} />
       <main className="flex-1 container mx-auto px-4 py-8 max-w-2xl">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="flex flex-col items-center mb-8">
@@ -78,24 +78,24 @@ const Profile = () => {
 
           <div className="space-y-4">
             <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
-              <Mail className="w-5 h-5 text-gray-600" />
-              <div>
+              <Mail className="w-5 h-5 text-gray-600 flex-shrink-0" />
+              <div className="min-w-0 flex-1">
                 <p className="text-sm text-gray-500">Email</p>
-                <p className="text-gray-800">{user.email}</p>
+                <p className="text-gray-800 break-words">{user.email}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
-              <Shield className="w-5 h-5 text-gray-600" />
-              <div>
+              <Shield className="w-5 h-5 text-gray-600 flex-shrink-0" />
+              <div className="min-w-0 flex-1">
                 <p className="text-sm text-gray-500">Rôle</p>
-                <p className="text-gray-800 capitalize">{user.role}</p>
+                <p className="text-gray-800 capitalize break-words">{user.role}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
-              <Calendar className="w-5 h-5 text-gray-600" />
-              <div>
+              <Calendar className="w-5 h-5 text-gray-600 flex-shrink-0" />
+              <div className="min-w-0 flex-1">
                 <p className="text-sm text-gray-500">Membre depuis</p>
                 <p className="text-gray-800">{createdDate}</p>
               </div>
@@ -111,7 +111,7 @@ const Profile = () => {
                 <Lock className="w-4 h-4" />
                 Modifier le mot de passe
               </button>
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
                   onClick={() => navigate('/dashboard')}
                   className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
@@ -186,7 +186,7 @@ const Profile = () => {
                 />
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
                   type="button"
                   onClick={() => {

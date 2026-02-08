@@ -31,7 +31,7 @@ export default function Header({classToPass}) {
                     </picture>
                   </Link>
                 </div>
-                <Link to="/" className="text-white text-lg sm:text-2xl font-bold relative truncate">
+                <Link to="/" className="hidden min-[400px]:block text-white text-lg sm:text-2xl font-bold relative">
                   AgilFlow
                 </Link>
               </div>
