@@ -21,9 +21,9 @@ export default function Header({classToPass}) {
   return (
       <header className={classToPass}>
           <nav className="container mx-auto px-4 py-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 bg-white rounded-full flex items-center justify-center">
                   <Link to="/">
                     <picture>
                       <source srcSet={logo_webp} type="image/webp" />
@@ -31,23 +31,23 @@ export default function Header({classToPass}) {
                     </picture>
                   </Link>
                 </div>
-                <Link to="/" className="text-white text-2xl font-bold relative">
+                <Link to="/" className="text-white text-base sm:text-xl md:text-2xl font-bold truncate hidden min-[400px]:block">
                   AgilFlow
                 </Link>
               </div>
     
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center gap-1.5 sm:gap-4 flex-shrink-0">
                 {isAuthenticated ? (
                   <>
                     <button 
                       onClick={() => navigate('/profile')}
-                      className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white font-medium hover:bg-white/20 transition-colors cursor-pointer"
+                      className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 rounded-full flex items-center justify-center text-white text-xs sm:text-base font-medium hover:bg-white/20 transition-colors cursor-pointer"
                     >
                       {user?.name ? user.name.charAt(0).toUpperCase() : '?'}
                     </button>
                     <button 
                       onClick={handleLogout}
-                      className="bg-white text-[#123363] px-6 py-2 rounded-full hover:bg-white/90 transition-colors font-medium"
+                      className="bg-white text-[#123363] px-3 py-1.5 sm:px-6 sm:py-2 rounded-full hover:bg-white/90 transition-colors font-medium text-xs sm:text-base"
                     >
                       Log out
                     </button>
@@ -55,7 +55,7 @@ export default function Header({classToPass}) {
                 ) : (
                   <button 
                     onClick={() => navigate('/login')}
-                    className="bg-white text-[#123363] px-6 py-2 rounded-full hover:bg-white/90 transition-colors font-medium"
+                    className="bg-white text-[#123363] px-3 py-1.5 sm:px-6 sm:py-2 rounded-full hover:bg-white/90 transition-colors font-medium text-xs sm:text-base"
                   >
                     Log in
                   </button>

@@ -108,7 +108,7 @@ export default function Register() {
             <div className="relative">
               <select
                 {...register("role", { required: "Le role est obligatoire" })}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pl-10"
+                className="shadow appearance-none border rounded w-full py-2 pl-10 pr-8 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xs sm:text-base"
                 id="role"
                 required
               >
@@ -123,14 +123,14 @@ export default function Register() {
               {errors.role && <p className='text-red-500'>{errors.role?.message}</p>}
             </div>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <button
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 sm:px-4 rounded focus:outline-none focus:shadow-outline text-xs sm:text-base"
               type="submit"
             >
               S'inscrire
             </button>
-            <Link to="/login" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" >Log in</Link>
+            <Link to="/login" className="w-full sm:w-auto text-center inline-block align-baseline font-bold text-xs sm:text-sm text-blue-500 hover:text-blue-800 py-2" >Log in</Link>
           </div>
         </form>
       </div>
