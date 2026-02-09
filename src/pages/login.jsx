@@ -103,15 +103,15 @@ export default function Login() {
               <Lock className="absolute left-3 top-2 text-gray-400" size={20} />
             </div>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <button
-              className={`bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 sm:px-4 rounded focus:outline-none focus:shadow-outline text-xs sm:text-base ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
               type="submit"
               disabled={isLoading}
             >
               {isLoading ? 'Connexion...' : 'Se connecter'}
             </button>
-            <Link to="/register" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" >Register</Link>
+            <Link to="/register" className="w-full sm:w-auto text-center inline-block align-baseline font-bold text-xs sm:text-sm text-blue-500 hover:text-blue-800 py-2" >Register</Link>
             {/* <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
               Mot de passe oublié ?
             </a> */}

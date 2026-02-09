@@ -133,7 +133,7 @@ export default function Card({ id, role, action, need, status, priority }) {
                 </div>
             )}
 
-            <div className="space-y-3 sm:space-y-4 pr-8">
+            <div className="space-y-3 sm:space-y-4 pr-20 sm:pr-24">
                 <div className="flex items-start space-x-2">
                     <span className="px-2 py-1 sm:px-3 bg-blue-100 text-blue-700 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap flex-shrink-0">
                         En tant que {role}

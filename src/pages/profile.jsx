@@ -79,17 +79,17 @@ const Profile = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
               <Mail className="w-5 h-5 text-gray-600" />
-              <div>
+              <div className="min-w-0">
                 <p className="text-sm text-gray-500">Email</p>
-                <p className="text-gray-800">{user.email}</p>
+                <p className="text-gray-800 break-words">{user.email}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
               <Shield className="w-5 h-5 text-gray-600" />
-              <div>
+              <div className="min-w-0">
                 <p className="text-sm text-gray-500">Rôle</p>
-                <p className="text-gray-800 capitalize">{user.role}</p>
+                <p className="text-gray-800 capitalize break-words">{user.role}</p>
               </div>
             </div>
 
@@ -106,21 +106,21 @@ const Profile = () => {
             <div className="mt-8 space-y-3">
               <button
                 onClick={() => setShowPasswordForm(true)}
-                className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                className="w-full px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 text-xs sm:text-base"
               >
                 <Lock className="w-4 h-4" />
-                Modifier le mot de passe
+                Modifier mot de passe
               </button>
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={() => navigate('/dashboard')}
-                  className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                  className="w-full px-3 sm:px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors text-xs sm:text-base"
                 >
-                  Retour au Dashboard
+                  Retour Dashboard
                 </button>
                 <button
                   onClick={handleLogout}
-                  className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                  className="w-full px-3 sm:px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-xs sm:text-base"
                 >
                   Déconnexion
                 </button>
@@ -186,7 +186,7 @@ const Profile = () => {
                 />
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   type="button"
                   onClick={() => {
@@ -197,13 +197,13 @@ const Profile = () => {
                     setNewPassword('');
                     setConfirmPassword('');
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                  className="w-full px-3 sm:px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors text-xs sm:text-base"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="w-full px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-base"
                 >
                   Enregistrer
                 </button>
